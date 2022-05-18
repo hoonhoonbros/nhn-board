@@ -10,6 +10,7 @@ public class Student {
     private final int id;
     private final String name;
     private final LocalDateTime createdAt;
+    private int testValue;
 
     public Student(int id, String name, LocalDateTime createdAt) {
         this.id = id;
