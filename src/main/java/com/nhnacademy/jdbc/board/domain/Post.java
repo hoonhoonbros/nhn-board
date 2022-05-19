@@ -1,4 +1,18 @@
 package com.nhnacademy.jdbc.board.domain;
 
+import lombok.Data;
+
+import java.util.Date;
+
+@Data
 public class Post {
+    private final Long postNo;
+    private final Long userNo;
+    private final String title;
+    private final String content;
+    private final Date createdAt;
+    private final Date updatedAt;
+    private final Date deletedAt;
+    private final Long parentPostNo;
+    private final Integer postOrder;
 }

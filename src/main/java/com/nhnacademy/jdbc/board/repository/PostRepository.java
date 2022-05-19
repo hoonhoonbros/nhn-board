@@ -1,7 +1,9 @@
 package com.nhnacademy.jdbc.board.repository;
 
-import org.springframework.stereotype.Repository;
+import com.nhnacademy.jdbc.board.domain.Post;
 
-@Repository
-public class PostRepository {
+import java.util.List;
+
+public interface PostRepository {
+    List<Post> findAll();
 }
