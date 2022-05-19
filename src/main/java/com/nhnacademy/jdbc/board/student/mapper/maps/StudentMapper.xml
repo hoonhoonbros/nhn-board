@@ -5,27 +5,30 @@
 
 <mapper namespace="com.nhnacademy.jdbc.board.student.mapper.StudentMapper">
     <select id="selectStudent" resultType="com.nhnacademy.jdbc.board.student.domain.Student">
-        select *
-        from JdbcStudents
-        where id = #{id}
+        SELECT *
+          FROM JdbcStudents
+         WHERE id = #{id}
     </select>
 
     <select id="selectStudents" resultType="com.nhnacademy.jdbc.board.student.domain.Student">
-        select *
-        from JdbcStudents
+        SELECT *
+          FROM JdbcStudents
     </select>
 
     <insert id="insertStudent">
-        insert into JdbcStudents(id, name, created_at)
-        values (#{id}, '${name}', #{createdAt})
+        INSERT INTO JdbcStudents(id, name, created_at)
+        VALUES (#{id}, '${name}', #{createdAt})
     </insert>
 
     <update id="updateNameById">
-        update JdbcStudents set name='${name}'
-        where id = #{id}
+        UPDATE JdbcStudents
+           SET name='${name}'
+         WHERE id = #{id}
     </update>
 
     <delete id="deleteById">
-        delete from JdbcStudents where id=#{id}
+        DELETE
+          FROM JdbcStudents
+         WHERE id = #{id}
     </delete>
 </mapper>

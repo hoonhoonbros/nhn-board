@@ -9,14 +9,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
+
 import javax.sql.DataSource;
 import java.io.IOException;
 
 @Configuration
-@MapperScan(basePackages = "**.mapper.**",  sqlSessionFactoryRef = "sqlSessionFactoryBean")
+@MapperScan(basePackages = "**.mapper.**", sqlSessionFactoryRef = "sqlSessionFactoryBean")
 public class MybatisConfig {
     @Bean
-    public DataSource dataSource(){
+    public DataSource dataSource() {
         BasicDataSource basicDataSource = new BasicDataSource();
         basicDataSource.setDriverClassName(com.mysql.cj.jdbc.Driver.class.getName());
         basicDataSource.setUrl("jdbc:mysql://133.186.211.156:3306/nhn_academy_32");
@@ -28,7 +29,7 @@ public class MybatisConfig {
     }
 
     @Bean
-    public DataSource logDataSource(){
+    public DataSource logDataSource() {
         return new P6DataSource(dataSource());
     }
 

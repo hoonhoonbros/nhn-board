@@ -9,7 +9,7 @@ import javax.servlet.Filter;
 public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[]{com.nhnacademy.jdbc.board.config.RootConfig.class};
+        return new Class[]{ com.nhnacademy.jdbc.board.config.RootConfig.class };
     }
 
     @Override
@@ -19,7 +19,7 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 
     @Override
     protected String[] getServletMappings() {
-        return new String[]{"/"};
+        return new String[]{ "/" };
     }
 
     @Override
@@ -29,6 +29,6 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
         characterEncodingFilter.setForceEncoding(true);
         HiddenHttpMethodFilter hiddenHttpMethodFilter = new HiddenHttpMethodFilter();
 
-        return new Filter[]{characterEncodingFilter, hiddenHttpMethodFilter};
+        return new Filter[]{ characterEncodingFilter, hiddenHttpMethodFilter };
     }
 }

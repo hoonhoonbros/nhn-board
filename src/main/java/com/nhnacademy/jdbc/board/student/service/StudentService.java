@@ -9,5 +9,5 @@ import java.util.Optional;
  * @Date : 17/05/2022
  */
 public interface StudentService {
-     Optional<Student> getStudent(long id);
+    Optional<Student> getStudent(long id);
 }

@@ -20,7 +20,7 @@ public class DefaultStudentService implements StudentService {
         this.studentMapper = studentMapper;
     }
 
-    public Optional<Student> getStudent(long id){
+    public Optional<Student> getStudent(long id) {
         return studentMapper.selectStudent(id);
     }
 }

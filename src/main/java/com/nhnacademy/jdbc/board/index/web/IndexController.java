@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Optional;
 
+@Slf4j
 @Controller
 @RequestMapping
-@Slf4j
 public class IndexController {
     private final StudentService studentService;
 
@@ -20,11 +20,11 @@ public class IndexController {
         this.studentService = studentService;
     }
 
-    @GetMapping(value = {"/","/index.nhn"})
-    public String index(){
+    @GetMapping(value = { "/" , "/index.nhn" })
+    public String index() {
         Optional<Student> student = studentService.getStudent(1l);
-        if(student.isPresent()){
-            log.debug("student : {}",student.get());
+        if (student.isPresent()) {
+            log.debug("student: {}" , student.get());
         }
         return "index/index";
     }
