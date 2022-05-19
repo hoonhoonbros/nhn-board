@@ -1,16 +1,16 @@
 package com.nhnacademy.jdbc.board.index.web;
 
-import com.nhnacademy.jdbc.board.service.BoardService;
+import com.nhnacademy.jdbc.board.service.PostService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/boards")
-public class BoardController {
-    private final BoardService boardService;
+public class PostController {
+    private final PostService boardService;
 
-    public BoardController(BoardService boardService) {
+    public PostController(PostService boardService) {
         this.boardService = boardService;
     }
 
