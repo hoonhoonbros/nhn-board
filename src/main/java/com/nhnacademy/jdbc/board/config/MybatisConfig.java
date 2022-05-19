@@ -20,9 +20,9 @@ public class MybatisConfig {
     public DataSource dataSource() {
         BasicDataSource basicDataSource = new BasicDataSource();
         basicDataSource.setDriverClassName(com.mysql.cj.jdbc.Driver.class.getName());
-        basicDataSource.setUrl("jdbc:mysql://133.186.211.156:3306/nhn_academy_32");
-        basicDataSource.setUsername("nhn_academy_32");
-        basicDataSource.setPassword("EJdrW!(bf]HjT9a5");
+        basicDataSource.setUrl("jdbc:mysql://133.186.211.156:3306/nhn_academy_19");
+        basicDataSource.setUsername("nhn_academy_19");
+        basicDataSource.setPassword("2/5l(ky6VP_bbyzZ");
         basicDataSource.setInitialSize(2);
         basicDataSource.setMaxTotal(10);
         return basicDataSource;
@@ -39,6 +39,7 @@ public class MybatisConfig {
         SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
         sessionFactory.setDataSource(logDataSource());
         sessionFactory.setMapperLocations(resolver.getResources("classpath*:**/maps/*.xml"));
+//        sessionFactory.setMapperLocations(resolver.getResources("classpath*:**/mapper/*.xml"));
         return sessionFactory;
     }
 
