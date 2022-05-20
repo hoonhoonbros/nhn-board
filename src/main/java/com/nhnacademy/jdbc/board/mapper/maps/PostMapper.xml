@@ -7,28 +7,28 @@
     <select id="selectPost" resultType="com.nhnacademy.jdbc.board.domain.post.Post">
         SELECT *
           FROM Post
-         WHERE post_id = #{postId}
+         WHERE post_no = #{postId}
     </select>
 
-    <select id="selectPosts" resultType="com.nhnacademy.jdbc.board.domain.post.Post">
+    <select id="selectPosts" resultType="com.nhnacademy.jdbc.board.domain.post.arraylist">
         SELECT *
-          FROM Post
+        FROM Post
     </select>
 
     <insert id="insertPost">
-        INSERT INTO Post(post_id, title, content, created_at)
+        INSERT INTO Post(post_no, title, content, created_at)
         VALUES (#{postId}, '${title}', #{createdAt})
     </insert>
 
     <update id="updatePostById">
         UPDATE Post
-           SET name='${name}'
-         WHERE post_id = #{postId}
+           SET title = '${title}', content = '${content}'
+         WHERE post_no = #{postId}
     </update>
 
     <delete id="deletePostById">
         DELETE
           FROM Post
-         WHERE post_id = #{postId}
+         WHERE post_no = #{postId}
     </delete>
 </mapper>
