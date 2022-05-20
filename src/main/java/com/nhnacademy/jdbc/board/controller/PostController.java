@@ -1,4 +1,4 @@
-package com.nhnacademy.jdbc.board.index.web;
+package com.nhnacademy.jdbc.board.controller;
 
 import com.nhnacademy.jdbc.board.service.PostService;
 import org.springframework.stereotype.Controller;

@@ -16,14 +16,16 @@ public class UserLoginService {
         this.userLoginRepository = userLoginRepository;
     }
 
-    public String loginService(String userName, String password, HttpServletRequest request){
-        User user = userLoginRepository.getUser(userName);
+    public String doLogin(String userName, String password, HttpServletRequest request) {
+        User user = userLoginRepository.findByUserName(userName).get();
 
-        if(Objects.equals(user.getPassword(), password)){
-            HttpSession session = request.getSession(true);
-            session.setAttribute("id", userName);
-            return "index/index";
+        if (Objects.equals(user, null) || !Objects.equals(user.getPassword(), password)) {
+            return "users/login-form";
         }
-        return "user/loginForm";
+
+        HttpSession session = request.getSession(true);
+        session.setAttribute("username", userName);
+
+        return "index/index";
     }
 }
