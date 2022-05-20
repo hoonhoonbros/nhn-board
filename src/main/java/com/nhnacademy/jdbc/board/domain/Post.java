@@ -1,10 +1,14 @@
 package com.nhnacademy.jdbc.board.domain;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
 public class Post {
     private final Long postNo;
     private final Long userNo;
