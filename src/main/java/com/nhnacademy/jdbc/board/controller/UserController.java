@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class LoginController {
+public class UserController {
 
     private final UserLoginService userLoginService;
 
-    public LoginController(UserLoginService userLoginService) {
+    public UserController(UserLoginService userLoginService) {
         this.userLoginService = userLoginService;
     }
 
@@ -22,7 +22,7 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String loginToBoard(@RequestParam("id")String userName, @RequestParam("pwd") String password, HttpServletRequest request){
+    public String loginToBoard(@RequestParam("username")String userName, @RequestParam("password") String password, HttpServletRequest request){
        return userLoginService.doLogin(userName,password,request);
     }
 

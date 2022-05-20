@@ -26,6 +26,6 @@ public class UserLoginService {
         HttpSession session = request.getSession(true);
         session.setAttribute("username", userName);
 
-        return "index/index";
+        return "posts/post";
     }
 }
