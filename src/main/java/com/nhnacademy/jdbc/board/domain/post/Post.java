@@ -1,4 +1,4 @@
-package com.nhnacademy.jdbc.board.domain;
+package com.nhnacademy.jdbc.board.domain.post;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
