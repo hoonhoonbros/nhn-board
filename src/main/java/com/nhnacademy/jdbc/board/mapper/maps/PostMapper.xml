@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nhnacademy.jdbc.board.post.mapper.PostMapper">
+    <select id="selectPost" resultType="com.nhnacademy.jdbc.board.domain.post.Post">
+        SELECT *
+          FROM Post
+         WHERE post_no = #{postId}
+    </select>
+
+    <select id="selectPosts" resultType="com.nhnacademy.jdbc.board.domain.post.Post">
+        SELECT *
+        FROM Post
+    </select>
+
+    <insert id="insertPost">
+        INSERT INTO Post(post_no, title, content, created_at)
+        VALUES (#{postId}, '${title}', #{createdAt})
+    </insert>
+
+    <update id="updatePostById">
+        UPDATE Post
+           SET title = '${title}', content = '${content}'
+         WHERE post_no = #{postId}
+    </update>
+
+    <delete id="deletePostById">
+        DELETE
+          FROM Post
+         WHERE post_no = #{postId}
+    </delete>
+</mapper>

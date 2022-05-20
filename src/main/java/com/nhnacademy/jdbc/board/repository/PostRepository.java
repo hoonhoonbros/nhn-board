@@ -1,7 +1,15 @@
 package com.nhnacademy.jdbc.board.repository;
 
-import org.springframework.stereotype.Repository;
+import com.nhnacademy.jdbc.board.domain.post.Post;
+import com.nhnacademy.jdbc.board.domain.post.PostNewRequest;
 
-@Repository
-public class PostRepository {
+import java.util.List;
+import java.util.Optional;
+
+public interface PostRepository {
+    List<Post> findAll();
+
+    Optional<Post> findById(Long postId);
+
+    void save(PostNewRequest postRequest);
 }
