@@ -30,7 +30,7 @@ public class PostController {
     @GetMapping("{postId}")
     public ModelAndView doPostDetail(@PathVariable Long postId) {
         ModelAndView mav = new ModelAndView("posts/post");
-        postService.getPost(postId);
+         postService.getPost(postId);
 
         return mav;
     }
