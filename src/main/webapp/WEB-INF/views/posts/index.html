@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <title>NHN Board</title>
+    </head>
+    <style>
+        body {
+            margin: 0;
+        }
+        header {
+            border-bottom: 3px solid darkgoldenrod;
+            padding: 1.5rem;
+        }
+        main {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 1.5rem);
+        }
+    </style>
+    <body>
+        <header>
+            <a href="/">NHN Board</a> | 게시글 목록
+        </header>
+        <main>
+            <div>
+                <div>
+                    <button onclick="location.href='new.html'">
+                        게시글 등록
+                    </button>
+                </div>
+                <div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>글번호</th>
+                                <th>제목</th>
+                                <th>작성자</th>
+                                <th>작성일자</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>2</a></td>
+                                <td><a href="post.html">반갑습니다. 코딩하는 락스타입니다.</a></td>
+                                <td>CoRock</td>
+                                <td>2022-05-20T10:33:00</td>
+                            </tr>
+                            <tr>
+                                <td>1</a></td>
+                                <td><a href="post.html">내가 첫 글이라니</a></td>
+                                <td>ehdgns07</td>
+                                <td>2022-05-19T10:22:00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>
