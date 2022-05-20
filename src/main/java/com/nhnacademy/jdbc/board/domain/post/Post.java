@@ -18,5 +18,5 @@ public class Post {
     private final Date updatedAt;
     private final Date deletedAt;
     private final Long parentPostNo;
-    private final Integer postOrder;
+    private final Integer postDepth;
 }
