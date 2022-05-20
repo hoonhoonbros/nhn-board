@@ -1,6 +1,7 @@
 package com.nhnacademy.jdbc.board.config;
 
 import com.nhnacademy.jdbc.board.interceptor.LoginCheckInterceptor;
+import javax.servlet.ServletContainerInitializer;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -82,4 +83,5 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware, Mes
         registry.addInterceptor(new LoginCheckInterceptor())
                 .excludePathPatterns("/login");
     }
+
 }

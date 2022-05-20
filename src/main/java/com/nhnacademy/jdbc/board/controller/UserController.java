@@ -1,8 +1,11 @@
 package com.nhnacademy.jdbc.board.controller;
 
-import com.nhnacademy.jdbc.board.service.UserLoginService;
+import com.nhnacademy.jdbc.board.service.impl.UserLoginServiceImpl;
+import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -10,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class UserController {
 
-    private final UserLoginService userLoginService;
+    private final UserLoginServiceImpl userLoginServiceImpl;
 
-    public UserController(UserLoginService userLoginService) {
-        this.userLoginService = userLoginService;
+    public UserController(UserLoginServiceImpl userLoginServiceImpl) {
+        this.userLoginServiceImpl = userLoginServiceImpl;
     }
 
     @GetMapping("/login")
@@ -22,8 +25,17 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String loginToBoard(@RequestParam("username")String userName, @RequestParam("password") String password, HttpServletRequest request){
-       return userLoginService.doLogin(userName,password,request);
+    public String loginToBoard(@RequestParam("username")String userName, @RequestParam("password") String password,
+                               HttpServletRequest request, HttpServletResponse response)
+        throws IOException {
+       boolean isLoginSuccess = userLoginServiceImpl.doLogin(userName,password,request);
+
+       if(isLoginSuccess){
+           response.sendRedirect("/posts");
+           return null;
+       }
+        response.sendRedirect("/users/login-form");
+       return null;
     }
 
 }
