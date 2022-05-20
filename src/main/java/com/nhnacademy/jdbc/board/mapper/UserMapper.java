@@ -1,8 +1,9 @@
 package com.nhnacademy.jdbc.board.mapper;
 
 import com.nhnacademy.jdbc.board.domain.User;
-import java.util.Optional;
+import org.apache.ibatis.annotations.Mapper;
+
 
 public interface UserMapper {
-    Optional<User> SelectUser(String userName);
+    User selectUser(String userName);
 }
