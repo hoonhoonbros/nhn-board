@@ -3,13 +3,50 @@
     <head>
         <meta charset="UTF-8">
         <title>NHN Board</title>
+        <link th:href="@{/css/board.min.css}" rel="stylesheet">
     </head>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        header {
+            border: 2px solid darkgoldenrod;
+            padding: 1.5rem;
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 1.5rem);
+        }
+    </style>
     <body>
         <header>
             <a href="/">NHN Board</a> | 게시글 상세
         </header>
         <main>
-            게시글 상세 페이지입니다.
+            <h2>게시글 상세</h2>
+            <div>
+                <label for="post-id">글 번호</label>
+                <input type="text" id="post-id" name="post-id" class="form-post" th:value="${post.id}" readonly>
+            </div>
+            <div>
+                <label for="post-title">글 제목</label>
+                <input type="text" id="post-title" name="post-title" class="form-post" th:value="${post.title}"
+                       readonly>
+            </div>
+            <div>
+                <label for="post-content">글 내용</label>
+                <textarea id="post-content" name="post-content" class="form-post" th:value="${post.content}" readonly>
+                </textarea>
+            </div>
+            <div>
+                <button onclick="location.href='edit.html'">글 수정</button>
+                <button onclick="location.href='index.html'">글 목록으로</button>
+            </div>
         </main>
     </body>
 </html>
