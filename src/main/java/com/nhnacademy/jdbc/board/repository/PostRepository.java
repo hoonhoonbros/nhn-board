@@ -11,5 +11,5 @@ public interface PostRepository {
 
     Optional<Post> findById(Long postId);
 
-    int save(PostNewRequest postRequest);
+    void save(PostNewRequest postRequest);
 }

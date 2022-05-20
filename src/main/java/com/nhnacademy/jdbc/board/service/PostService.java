@@ -11,5 +11,5 @@ public interface PostService {
 
     Optional<Post> getPost(Long postId);
 
-    int newPost(PostNewRequest postRequest);
+    void newPost(PostNewRequest postRequest);
 }

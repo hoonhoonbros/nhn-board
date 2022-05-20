@@ -37,7 +37,9 @@ public class PostController {
     @PostMapping("/new")
     public ModelAndView doNewPost(@ModelAttribute PostNewRequest postRequest) {
         ModelAndView mav = new ModelAndView("posts/post");
-        mav.addObject("post", postService.newPost(postRequest));
+
+        // FIXME: return type
+        // mav.addObject("post", postService.newPost(postRequest));
 
         return mav;
     }

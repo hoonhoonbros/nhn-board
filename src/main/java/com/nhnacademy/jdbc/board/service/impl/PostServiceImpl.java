@@ -26,7 +26,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public int newPost(PostNewRequest postRequest) {
-        return postRepository.save(postRequest);
+    public void newPost(PostNewRequest postRequest) {
+        postRepository.save(postRequest);
     }
 }

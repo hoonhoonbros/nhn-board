@@ -10,7 +10,7 @@
          WHERE post_no = #{postId}
     </select>
 
-    <select id="selectPosts" resultType="com.nhnacademy.jdbc.board.domain.post.arraylist">
+    <select id="selectPosts" resultType="com.nhnacademy.jdbc.board.domain.post.Post">
         SELECT *
         FROM Post
     </select>
