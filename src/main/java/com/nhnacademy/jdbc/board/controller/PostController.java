@@ -2,6 +2,7 @@ package com.nhnacademy.jdbc.board.controller;
 
 import com.nhnacademy.jdbc.board.domain.post.PostNewRequest;
 import com.nhnacademy.jdbc.board.service.PostService;
+import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -42,21 +43,20 @@ public class PostController {
     }
 
     @PostMapping("/new")
-    public ModelAndView doNewPost(@ModelAttribute PostNewRequest postRequest) {
-        ModelAndView mav = new ModelAndView("posts/post");
+    public String doNewPost(@ModelAttribute PostNewRequest postRequest,
+                            HttpServletRequest request) {
 
-        // FIXME: return type
-        // mav.addObject("post", postService.newPost(postRequest));
+        postService.newPost(postRequest, request);
 
-        return mav;
+        return "redirect:/posts";
     }
 
-    @GetMapping("/edit")
+    @GetMapping("/{postNo}/edit")
     public String editPost() {
         return "posts/edit";
     }
 
-    @PutMapping("/edit")
+    @PutMapping("/{postNo}/edit")
     public String doEditPost() {
         // TODO: Validation -> index | postDetail
         // return "posts/edit";

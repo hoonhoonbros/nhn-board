@@ -30,23 +30,24 @@
         <main>
             <h2>게시글 상세</h2>
             <div>
-                <label for="post-id">글 번호</label>
-                <input type="text" id="post-id" name="post-id" class="form-post" th:value="${post.postNo}" readonly>
+                <label for="post-no">글 번호</label>
+                <input type="text" id="post-no" name="postNo" class="form-post" th:value="${post.postNo}" readonly>
             </div>
             <div>
                 <label for="post-title">글 제목</label>
-                <input type="text" id="post-title" name="post-title" class="form-post" th:value="${post.title}"
+                <input type="text" id="post-title" name="title" class="form-post" th:value="${post.title}"
                        readonly>
             </div>
             <div>
                 <label for="post-content">글 내용</label>
-                <textarea id="post-content" name="post-content" class="form-post" th:value="${post.content}" readonly>
+                <textarea width="600" id="post-content" name="content" class="form-post" th:value="${post.content}">
                 </textarea>
             </div>
             <div>
-                <button th:onclick="'location.href=\'/posts/reply/' + ${post.postNo} + '\''" >답글</button>
-                <button onclick="location.href='edit.html'">글 수정</button>
-                <button onclick="location.href='index.html'">글 목록으로</button>
+                <button onclick="location.href= '/posts/reply'">답글</button>
+                <!-- /posts/5/edit -->
+                <button th:onclick="|location.href='@{/posts/{postNo}/edit (postNo=${post.postNo})}'|">글 수정</button>
+                <button th:onclick="|location.href='@{/posts}'|">글 목록으로</button>
             </div>
         </main>
     </body>
