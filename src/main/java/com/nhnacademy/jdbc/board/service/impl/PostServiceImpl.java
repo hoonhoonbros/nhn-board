@@ -6,13 +6,11 @@ import com.nhnacademy.jdbc.board.domain.user.User;
 import com.nhnacademy.jdbc.board.repository.PostRepository;
 import com.nhnacademy.jdbc.board.repository.UserRepository;
 import com.nhnacademy.jdbc.board.service.PostService;
+import java.util.List;
 import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
