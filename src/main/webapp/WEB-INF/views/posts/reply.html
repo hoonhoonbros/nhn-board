@@ -27,21 +27,23 @@
     <a href="/">NHN Board</a> | 답글 등록
 </header>
 <main>
-    <h1>게시글 등록하기</h1>
+    <h1>답글 등록하기</h1>
     <form action="/posts/reply" th:action method="post">
         <div>
-            <label for="post-id">글 번호</label>
-            <input type="text" id="post-id" name="post-id" class="form-post" th:value="${post.id}" readonly>
+            <label for="parent-post-id">윗글 번호</label>
+            <input type="text" id="parent-post-id" name="parent-post-id" class="form-post" th:value="${parentPostNo}" readonly>
         </div>
+<!--        <div>-->
+<!--            <label for="post-id">글 번호</label>-->
+<!--            <input type="text" id="post-id" th:name="${postNo}" class="form-post" readonly>-->
+<!--        </div>-->
         <div>
             <label for="post-title">글 제목</label>
-            <input type="text" id="post-title" name="post-title" class="form-post" th:value="${post.title}"
-                   placeholder="제목을 입력하세요.">
+            <input type="text" id="post-title" name="title" class="form-post" th:value="${title}">
         </div>
         <div>
             <label for="post-content">글 내용</label>
-            <textarea id="post-content" name="post-content" class="form-post" th:value="${post.content}"
-                      placeholder="내용을 입력하세요.">
+            <textarea id="post-content" name="content" class="form-post" th:value="${content}">
                 </textarea>
         </div>
         <div>
