@@ -9,10 +9,20 @@
              , title
              , username
              , created_at AS createdAt
+             , seq_no     AS sequenceNo
           FROM Post A
                INNER JOIN User B
                        ON B.user_no = A.user_no
-         ORDER BY post_no DESC
+         ORDER BY seq_no
+    </select>
+    <select id="selectPost" resultType="com.nhnacademy.jdbc.board.domain.post.PostDetailViewVo">
+        SELECT post_no    AS postNo
+             , title
+             , content
+        FROM Post A
+                 INNER JOIN User B
+                            ON B.user_no = A.user_no
+        where post_no = #{postId}
     </select>
 
     <insert id="insertPost">

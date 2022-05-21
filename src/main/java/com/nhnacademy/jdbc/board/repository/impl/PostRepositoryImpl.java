@@ -1,6 +1,7 @@
 package com.nhnacademy.jdbc.board.repository.impl;
 
 import com.nhnacademy.jdbc.board.domain.post.Post;
+import com.nhnacademy.jdbc.board.domain.post.PostDetailViewVo;
 import com.nhnacademy.jdbc.board.domain.post.PostNewRequest;
 import com.nhnacademy.jdbc.board.mapper.PostMapper;
 import com.nhnacademy.jdbc.board.repository.PostRepository;
@@ -20,7 +21,7 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public Optional<Post> findById(Long postId) {
+    public Optional<PostDetailViewVo> findById(Long postId) {
         return postMapper.selectPost(postId);
     }
 

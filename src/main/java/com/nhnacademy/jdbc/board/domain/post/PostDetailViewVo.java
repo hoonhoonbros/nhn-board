@@ -6,10 +6,8 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class PostViewVo {
+public class PostDetailViewVo {
     private Long postNo;
     private String title;
-    private String username;
-    private Date createdAt;
     private String content;
 }
