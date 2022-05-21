@@ -1,7 +1,8 @@
-package com.nhnacademy.jdbc.board.service;
+package com.nhnacademy.jdbc.board.service.impl;
 
 import com.nhnacademy.jdbc.board.domain.User;
 import com.nhnacademy.jdbc.board.repository.UserLoginRepository;
+import com.nhnacademy.jdbc.board.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,20 +14,20 @@ import static java.util.Objects.isNull;
 
 @Service
 @RequiredArgsConstructor
-public class UserLoginService {
+public class UserServiceImpl implements UserService {
     private final UserLoginRepository userLoginRepository;
 
-    public String doLogin(String username, String password, HttpServletRequest request) {
+    public boolean doLogin(String username, String password, HttpServletRequest request) {
         User user = userLoginRepository.findByUserName(username).get();
 
         if (!isValidAccount(password, user)) {
-            return "users/login-form";
+            return false;
         }
 
         HttpSession session = request.getSession(true);
         session.setAttribute("username", username);
 
-        return "redirect:/posts";
+        return true;
     }
 
     private boolean isValidAccount(String password, User user) {

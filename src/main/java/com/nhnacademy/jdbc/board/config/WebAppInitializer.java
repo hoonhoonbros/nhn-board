@@ -1,12 +1,18 @@
 package com.nhnacademy.jdbc.board.config;
 
+import java.util.HashSet;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.SessionTrackingMode;
+import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import javax.servlet.Filter;
 
-public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer
+{
     @Override
     protected Class<?>[] getRootConfigClasses() {
         return new Class[]{ com.nhnacademy.jdbc.board.config.RootConfig.class };
@@ -30,5 +36,7 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
         HiddenHttpMethodFilter hiddenHttpMethodFilter = new HiddenHttpMethodFilter();
 
         return new Filter[]{ characterEncodingFilter, hiddenHttpMethodFilter };
+
+
     }
 }
