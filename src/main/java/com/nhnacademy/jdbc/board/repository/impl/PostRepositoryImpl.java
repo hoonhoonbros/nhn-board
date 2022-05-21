@@ -4,12 +4,10 @@ import com.nhnacademy.jdbc.board.domain.post.Post;
 import com.nhnacademy.jdbc.board.domain.post.PostNewRequest;
 import com.nhnacademy.jdbc.board.mapper.PostMapper;
 import com.nhnacademy.jdbc.board.repository.PostRepository;
-import java.util.Objects;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
-
 import java.util.List;
 import java.util.Optional;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
@@ -37,13 +35,13 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     public void increaseSeqNumber(Long parentPostId) {
-//        long countAllPosts = postMapper.countAllPosts();
+        // long countAllPosts = postMapper.countAllPosts();
         List<Post> posts = postMapper.selectPosts();
-//        Post post;
-//        for(long i = parentPostId+1; i <= countAllPosts; i++){
-//            post = findById(i).get();
-//            postMapper.updateReplySequence(post.getSequenceNumber());
-//        }
+        // Post post;
+        // for (long i = parentPostId + 1; i <= countAllPosts; i++) {
+        //     post = findById(i).get();
+        //     postMapper.updateReplySequence(post.getSequenceNumber());
+        // }
 
         posts.forEach(post -> {
             long postNo = post.getPostNo();
@@ -51,6 +49,6 @@ public class PostRepositoryImpl implements PostRepository {
                 postMapper.updateReplySequence(postNo);
             }
         });
-
     }
+
 }

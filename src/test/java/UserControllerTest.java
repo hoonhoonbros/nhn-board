@@ -7,9 +7,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import com.nhnacademy.jdbc.board.controller.UserController;
-import com.nhnacademy.jdbc.board.domain.User;
+import com.nhnacademy.jdbc.board.domain.user.User;
 import com.nhnacademy.jdbc.board.interceptor.LoginCheckInterceptor;
-import com.nhnacademy.jdbc.board.repository.impl.UserRepositoryImpl;
+import com.nhnacademy.jdbc.board.repository.UserRepository;
 import com.nhnacademy.jdbc.board.service.impl.UserServiceImpl;
 import java.util.Optional;
 import javax.servlet.http.HttpSession;
@@ -23,11 +23,11 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 public class UserControllerTest {
     MockMvc mockMvc;
     UserServiceImpl userServiceImpl;
-    UserRepositoryImpl userRepositoryImpl;
+    UserRepository userRepository;
     @BeforeEach
     void setUp(){
-        userRepositoryImpl = mock(UserRepositoryImpl.class);
-        userServiceImpl = new UserServiceImpl(userRepositoryImpl);
+        userRepository = mock(UserRepository.class);
+        userServiceImpl = new UserServiceImpl(userRepository);
         mockMvc = MockMvcBuilders.standaloneSetup(new UserController(userServiceImpl))
                                  .addInterceptors(new LoginCheckInterceptor())
                                  .build();
@@ -45,7 +45,7 @@ public class UserControllerTest {
         User user = new User(0,"admin","123", "관리자");
         Optional<User> userTest = Optional.of(user);
 
-        when(userRepositoryImpl.findByUserName(anyString())).thenReturn(userTest);
+        when(userRepository.findByUserName(anyString())).thenReturn(userTest);
 
         MvcResult mockResult = mockMvc.perform(post("/login")
                                       .param("username", "admin")

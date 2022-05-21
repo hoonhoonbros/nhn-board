@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <title>NHN Board</title>
+    </head>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        header {
+            border-bottom: 3px solid darkgoldenrod;
+            padding: 1.5rem;
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 1.5rem);
+        }
+    </style>
+    <body>
+        <header>
+            <a href="/">NHN Board</a> | 게시글 목록
+        </header>
+        <main>
+            <form method="post" action="login">
+                ID : <input type="text" name="username"><br>
+                PW : <input type="password" name="password"><br>
+                <input type="submit" value="로그인">
+            </form>
+        </main>
+    </body>
+</html>

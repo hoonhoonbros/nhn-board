@@ -2,7 +2,6 @@ package com.nhnacademy.jdbc.board.mapper;
 
 import com.nhnacademy.jdbc.board.domain.post.Post;
 import com.nhnacademy.jdbc.board.domain.post.PostNewRequest;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -17,5 +16,5 @@ public interface PostMapper {
 
     void updateReplySequence(Long postId);
 
-//    Long countAllPosts();
+    // Long countAllPosts();
 }
