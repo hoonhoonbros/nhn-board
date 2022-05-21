@@ -10,7 +10,7 @@ import com.nhnacademy.jdbc.board.controller.UserController;
 import com.nhnacademy.jdbc.board.domain.User;
 import com.nhnacademy.jdbc.board.interceptor.LoginCheckInterceptor;
 import com.nhnacademy.jdbc.board.repository.UserLoginRepository;
-import com.nhnacademy.jdbc.board.service.UserLoginService;
+import com.nhnacademy.jdbc.board.service.impl.UserLoginServiceImpl;
 import java.util.Optional;
 import javax.servlet.http.HttpSession;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,13 +22,13 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 public class UserControllerTest {
     MockMvc mockMvc;
-    UserLoginService userLoginService;
+    UserLoginServiceImpl userLoginServiceImpl;
     UserLoginRepository userLoginRepository;
     @BeforeEach
     void setUp(){
         userLoginRepository = mock(UserLoginRepository.class);
-        userLoginService = new UserLoginService(userLoginRepository);
-        mockMvc = MockMvcBuilders.standaloneSetup(new UserController(userLoginService))
+        userLoginServiceImpl = new UserLoginServiceImpl(userLoginRepository);
+        mockMvc = MockMvcBuilders.standaloneSetup(new UserController(userLoginServiceImpl))
                                  .addInterceptors(new LoginCheckInterceptor())
                                  .build();
     }
