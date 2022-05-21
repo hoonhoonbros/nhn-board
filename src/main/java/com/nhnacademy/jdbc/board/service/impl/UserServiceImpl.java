@@ -3,34 +3,30 @@ package com.nhnacademy.jdbc.board.service.impl;
 import com.nhnacademy.jdbc.board.domain.User;
 import com.nhnacademy.jdbc.board.repository.UserLoginRepository;
 import com.nhnacademy.jdbc.board.service.UserService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-
+import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Objects;
-
-import static java.util.Objects.nonNull;
+import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
-public class UserServiceImpl implements UserService {
+public class UserLoginServiceImpl implements UserService {
     private final UserLoginRepository userLoginRepository;
 
-    public boolean doLogin(String username, String password, HttpServletRequest request) {
-        User user = userLoginRepository.findByUserName(username).get();
+    public UserLoginServiceImpl(
+        UserLoginRepository userLoginRepository) {
+        this.userLoginRepository = userLoginRepository;
+    }
 
-        if (!isValidAccount(password, user)) {
+    public boolean doLogin(String userName, String password, HttpServletRequest request) {
+        User user = userLoginRepository.findByUserName(userName).get();
+
+        if (Objects.equals(user, null) || !Objects.equals(user.getPassword(), password)) {
             return false;
         }
 
         HttpSession session = request.getSession(true);
-        session.setAttribute("username", username);
+        session.setAttribute("username", userName);
 
         return true;
-    }
-
-    private boolean isValidAccount(String password, User user) {
-        return nonNull(user) || Objects.equals(user.getPassword(), password);
     }
 }

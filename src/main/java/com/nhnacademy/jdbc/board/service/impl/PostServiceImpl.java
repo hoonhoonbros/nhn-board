@@ -21,12 +21,18 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Optional<Post> getPost(Long postId) {
-        return postRepository.findById(postId);
+    public Post getPost(Long postId) {
+        return postRepository.findById(postId).get();
     }
 
     @Override
     public void newPost(PostNewRequest postRequest) {
         postRepository.save(postRequest);
+    }
+
+    @Override
+    public void doReplyPost(Long parentPostId, PostNewRequest postRequest) {
+        postRepository.increaseSeqNumber(parentPostId);
+        postRepository.saveReply(postRequest);
     }
 }

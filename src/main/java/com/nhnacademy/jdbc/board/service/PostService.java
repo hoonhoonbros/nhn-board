@@ -9,7 +9,9 @@ import java.util.Optional;
 public interface PostService {
     List<Post> getAllPosts();
 
-    Optional<Post> getPost(Long postId);
+    Post getPost(Long postId);
 
     void newPost(PostNewRequest postRequest);
+
+    void doReplyPost(Long ParentPostId, PostNewRequest postRequest);
 }

@@ -19,4 +19,5 @@ public class Post {
     private final Date deletedAt;
     private final Long parentPostNo;
     private final Integer postDepth;
+    private final Long sequenceNumber;
 }

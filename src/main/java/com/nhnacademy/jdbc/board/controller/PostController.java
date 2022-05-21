@@ -36,6 +36,7 @@ public class PostController {
 
     @PostMapping("/new")
     public ModelAndView doNewPost(@ModelAttribute PostNewRequest postRequest) {
+
         ModelAndView mav = new ModelAndView("posts/post");
 
         // FIXME: return type
@@ -64,5 +65,19 @@ public class PostController {
     @DeleteMapping("/delete")
     public String doDeletePost() {
         return null;
+    }
+
+    @GetMapping("/reply")
+    public String reply(){
+        return "posts/reply";
+    }
+
+    @PostMapping("/reply")
+    public ModelAndView doReply(@ModelAttribute PostNewRequest postRequest, @RequestParam Long ParentPostId){
+        ModelAndView mav = new ModelAndView("posts/post");
+
+//        mav.addObject(postService.doReplyPost(ParentPostId,postRequest));
+
+        return mav;
     }
 }

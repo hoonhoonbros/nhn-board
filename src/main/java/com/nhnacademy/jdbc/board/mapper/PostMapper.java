@@ -12,4 +12,10 @@ public interface PostMapper {
     Optional<Post> selectPost(Long postId);
 
     void insertPost(PostNewRequest postRequest);
+
+    void insertReplyPost(PostNewRequest postRequest);
+
+    void updateReplySequence(Long postId);
+
+//    Long countAllPosts();
 }
