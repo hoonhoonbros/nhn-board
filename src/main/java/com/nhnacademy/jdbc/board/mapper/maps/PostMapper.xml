@@ -15,9 +15,21 @@
          ORDER BY post_no DESC
     </select>
 
+    <select id="selectPost" resultType="com.nhnacademy.jdbc.board.domain.post.Post">
+        SELECT post_no   AS postNo
+             , title
+             , username
+             , content
+        FROM Post A
+             INNER JOIN User B
+                     ON B.user_no = A.user_no
+        WHERE post_no = #{postNo}
+    </select>
+
+    <!-- TODO: 게시판 내용의 목록은 번호, 제목, 작성자, (수정자), 작성일시, 댓글 개수 입니다. -->
     <insert id="insertPost">
-        INSERT INTO Post(post_no, title, content, created_at)
-        VALUES (#{postId}, #{title}, #{content}, #{createdAt})
+        INSERT INTO Post (user_no, parent_post_no, title, content, created_at, post_depth, sequence_no)
+        VALUES (#{userNo}, 0, #{title}, #{content}, NOW(), 0, 0)
     </insert>
 
     <update id="updatePostById">
