@@ -12,4 +12,8 @@ public interface PostRepository {
     Optional<Post> findById(Long postId);
 
     void save(PostNewRequest postRequest);
+
+    void saveReply(PostNewRequest postRequest);
+
+    public void increaseSeqNumber(Long parentPostId);
 }

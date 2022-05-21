@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.nhnacademy.jdbc.board.post.mapper.PostMapper">
+<mapper namespace="com.nhnacademy.jdbc.board.mapper.PostMapper">
     <select id="selectPost" resultType="com.nhnacademy.jdbc.board.domain.post.Post">
         SELECT *
           FROM Post
@@ -12,13 +12,30 @@
 
     <select id="selectPosts" resultType="com.nhnacademy.jdbc.board.domain.post.Post">
         SELECT *
-        FROM Post
+          FROM Post
+      ORDER BY seq_no
     </select>
+
+<!--    <select id = "countAllPosts" resultType="long">-->
+<!--        SELECT COUNT(*)-->
+<!--        FROM Post-->
+<!--    </select>-->
 
     <insert id="insertPost">
         INSERT INTO Post(post_no, title, content, created_at)
         VALUES (#{postId}, '${title}', #{createdAt})
     </insert>
+
+    <insert id="insertReplyPost">
+        INsert INTO Post(title, content, created_at, post_depth, seq_no, parent_no)
+        VALUES ('${title}', '${content}', now(), #{postDepth+1}, #{sequenceNumber}, #{parentPostNo})
+    </insert>
+
+    <update id = "updateReplySequence">
+        UPDATE Post
+           SET seq_no = seq_no + 1
+         WHERE post_no = #{ParentPostId}
+    </update>
 
     <update id="updatePostById">
         UPDATE Post

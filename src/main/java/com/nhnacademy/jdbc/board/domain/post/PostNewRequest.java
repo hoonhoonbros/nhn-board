@@ -12,4 +12,5 @@ public class PostNewRequest {
     private final Date createdAt;
     private final Long parentPostNo;
     private final Integer postDepth;
+    private final Integer sequenceNumber;
 }

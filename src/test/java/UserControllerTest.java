@@ -9,8 +9,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import com.nhnacademy.jdbc.board.controller.UserController;
 import com.nhnacademy.jdbc.board.domain.User;
 import com.nhnacademy.jdbc.board.interceptor.LoginCheckInterceptor;
-import com.nhnacademy.jdbc.board.repository.UserLoginRepository;
-import com.nhnacademy.jdbc.board.service.impl.UserLoginServiceImpl;
+import com.nhnacademy.jdbc.board.repository.impl.UserRepositoryImpl;
+import com.nhnacademy.jdbc.board.service.impl.UserServiceImpl;
 import java.util.Optional;
 import javax.servlet.http.HttpSession;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,13 +22,13 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 public class UserControllerTest {
     MockMvc mockMvc;
-    UserLoginServiceImpl userLoginServiceImpl;
-    UserLoginRepository userLoginRepository;
+    UserServiceImpl userServiceImpl;
+    UserRepositoryImpl userRepositoryImpl;
     @BeforeEach
     void setUp(){
-        userLoginRepository = mock(UserLoginRepository.class);
-        userLoginServiceImpl = new UserLoginServiceImpl(userLoginRepository);
-        mockMvc = MockMvcBuilders.standaloneSetup(new UserController(userLoginServiceImpl))
+        userRepositoryImpl = mock(UserRepositoryImpl.class);
+        userServiceImpl = new UserServiceImpl(userRepositoryImpl);
+        mockMvc = MockMvcBuilders.standaloneSetup(new UserController(userServiceImpl))
                                  .addInterceptors(new LoginCheckInterceptor())
                                  .build();
     }
@@ -45,7 +45,7 @@ public class UserControllerTest {
         User user = new User(0,"admin","123", "관리자");
         Optional<User> userTest = Optional.of(user);
 
-        when(userLoginRepository.findByUserName(anyString())).thenReturn(userTest);
+        when(userRepositoryImpl.findByUserName(anyString())).thenReturn(userTest);
 
         MvcResult mockResult = mockMvc.perform(post("/login")
                                       .param("username", "admin")
