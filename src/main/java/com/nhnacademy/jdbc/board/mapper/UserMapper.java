@@ -1,6 +1,6 @@
 package com.nhnacademy.jdbc.board.mapper;
 
-import com.nhnacademy.jdbc.board.domain.User;
+import com.nhnacademy.jdbc.board.domain.user.User;
 import java.util.Optional;
 
 

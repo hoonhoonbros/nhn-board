@@ -4,7 +4,14 @@ import com.nhnacademy.jdbc.board.domain.post.PostNewRequest;
 import com.nhnacademy.jdbc.board.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -68,15 +75,16 @@ public class PostController {
     }
 
     @GetMapping("/reply")
-    public String reply(){
+    public String reply() {
         return "posts/reply";
     }
 
     @PostMapping("/reply")
-    public ModelAndView doReply(@ModelAttribute PostNewRequest postRequest, @RequestParam Long ParentPostId){
-        ModelAndView mav = new ModelAndView("posts/post");
+    public ModelAndView doReply(@ModelAttribute PostNewRequest postRequest,
+                                @RequestParam Long ParentPostId) {
 
-//        mav.addObject(postService.doReplyPost(ParentPostId,postRequest));
+        ModelAndView mav = new ModelAndView("posts/post");
+        // mav.addObject(postService.doReplyPost(ParentPostId, postRequest));
 
         return mav;
     }

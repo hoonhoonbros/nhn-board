@@ -31,4 +31,5 @@
           FROM Post
          WHERE post_no = #{postId}
     </delete>
+
 </mapper>

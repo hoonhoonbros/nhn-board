@@ -1,6 +1,6 @@
 package com.nhnacademy.jdbc.board.repository.impl;
 
-import com.nhnacademy.jdbc.board.domain.User;
+import com.nhnacademy.jdbc.board.domain.user.User;
 import com.nhnacademy.jdbc.board.mapper.UserMapper;
 import com.nhnacademy.jdbc.board.repository.UserRepository;
 import java.util.Optional;

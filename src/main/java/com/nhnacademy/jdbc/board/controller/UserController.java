@@ -1,41 +1,39 @@
 package com.nhnacademy.jdbc.board.controller;
 
-import com.nhnacademy.jdbc.board.service.impl.UserLoginServiceImpl;
+import com.nhnacademy.jdbc.board.service.UserService;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+@RequiredArgsConstructor
 public class UserController {
-
-    private final UserLoginServiceImpl userLoginServiceImpl;
-
-    public UserController(UserLoginServiceImpl userLoginServiceImpl) {
-        this.userLoginServiceImpl = userLoginServiceImpl;
-    }
+    private final UserService userService;
 
     @GetMapping("/login")
-    public String goLoginForm(){
-        return "users/login-form";
+    public String goLoginForm() {
+        return "users/form";
     }
 
     @PostMapping("/login")
-    public String loginToBoard(@RequestParam("username")String userName, @RequestParam("password") String password,
-                               HttpServletRequest request, HttpServletResponse response)
-        throws IOException {
-       boolean isLoginSuccess = userLoginServiceImpl.doLogin(userName,password,request);
+    public String loginToBoard(@RequestParam("username") String userName,
+                               @RequestParam("password") String password,
+                               HttpServletRequest request,
+                               HttpServletResponse response) throws IOException {
 
-       if(isLoginSuccess){
-           response.sendRedirect("/posts");
-           return null;
-       }
-        response.sendRedirect("/users/login-form");
+        boolean isLoginSuccess = userService.doLogin(userName, password, request);
+
+        if (isLoginSuccess) {
+            response.sendRedirect("/posts");
             return null;
+        }
+        response.sendRedirect("/users/form");
+        return null;
     }
 
 }
