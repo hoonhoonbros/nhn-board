@@ -43,7 +43,6 @@ public class PostController {
 
     @PostMapping("/new")
     public ModelAndView doNewPost(@ModelAttribute PostNewRequest postRequest) {
-
         ModelAndView mav = new ModelAndView("posts/post");
 
         // FIXME: return type
