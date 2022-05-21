@@ -44,7 +44,7 @@
                 </textarea>
             </div>
             <div>
-                <button onclick="location.href= '/posts/reply'">답글</button>
+                <button th:onclick="'location.href=\'/posts/reply/' + ${post.postNo} + '\''" >답글</button>
                 <button onclick="location.href='edit.html'">글 수정</button>
                 <button onclick="location.href='index.html'">글 목록으로</button>
             </div>

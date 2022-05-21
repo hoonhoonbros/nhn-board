@@ -67,16 +67,18 @@ public class PostController {
         return null;
     }
 
-    @GetMapping("/reply")
-    public String reply(){
-        return "posts/reply";
+    @GetMapping("/reply/{parentPostNo}")
+    public ModelAndView reply(@PathVariable Long parentPostNo){
+        ModelAndView mav = new ModelAndView("posts/reply");
+        mav.addObject(parentPostNo);
+        return mav;
     }
 
-    @PostMapping("/reply")
-    public ModelAndView doReply(@ModelAttribute PostNewRequest postRequest, @RequestParam Long ParentPostId){
+    @PostMapping("/reply/{parentPostNo}")
+    public ModelAndView doReply(@ModelAttribute PostNewRequest postRequest){
         ModelAndView mav = new ModelAndView("posts/post");
-
-//        mav.addObject(postService.doReplyPost(ParentPostId,postRequest));
+        postService.doReplyPost(postRequest);
+        // mav.addObject("post", );
 
         return mav;
     }

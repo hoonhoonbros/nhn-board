@@ -13,5 +13,5 @@ public interface PostService {
 
     void newPost(PostNewRequest postRequest);
 
-    void doReplyPost(Long ParentPostId, PostNewRequest postRequest);
+    void doReplyPost(PostNewRequest postRequest);
 }

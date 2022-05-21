@@ -3,8 +3,10 @@ package com.nhnacademy.jdbc.board.domain.post;
 import lombok.AllArgsConstructor;
 
 import java.util.Date;
+import lombok.Value;
 
 @AllArgsConstructor
+@Value
 public class PostNewRequest {
     private final Long userNo;
     private final String title;

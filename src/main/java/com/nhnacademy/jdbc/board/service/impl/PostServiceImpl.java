@@ -31,8 +31,8 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public void doReplyPost(Long parentPostId, PostNewRequest postRequest) {
-        postRepository.increaseSeqNumber(parentPostId);
+    public void doReplyPost(PostNewRequest postRequest) {
+        postRepository.increaseSeqNumber(postRequest.getParentPostNo());
         postRepository.saveReply(postRequest);
     }
 }
