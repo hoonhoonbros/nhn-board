@@ -3,7 +3,10 @@
 
 <mapper namespace="com.nhnacademy.jdbc.board.mapper.UserMapper">
     <select id="selectUser" resultType="com.nhnacademy.jdbc.board.domain.user.User">
-        SELECT *
+        SELECT user_no   AS userNo
+             , username
+             , password
+             , role_code AS roleCode
           FROM User
          WHERE username = '${userName}'
     </select>

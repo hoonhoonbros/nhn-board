@@ -13,5 +13,7 @@ public class UserRepositoryImpl implements UserRepository {
     private final UserMapper userMapper;
 
     @Override
-    public Optional<User> findByUserName(String userName){ return userMapper.selectUser(userName); }
+    public Optional<User> findByUserName(String userName) {
+        return userMapper.selectUser(userName);
+    }
 }

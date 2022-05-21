@@ -1,18 +1,20 @@
 package com.nhnacademy.jdbc.board.domain.post;
 
-import lombok.AllArgsConstructor;
-
 import java.util.Date;
-import lombok.Value;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@Getter
+@NoArgsConstructor
 @AllArgsConstructor
-@Value
 public class PostNewRequest {
-    private final Long userNo;
-    private final Long parentPostNo;
-    private final String title;
-    private final String content;
-    private final Date createdAt;
-    private final Integer postDepth;
-    private final Integer sequenceNo;
+    private Long postNo;
+    private Long userNo;
+    private Long parentPostNo;
+    private String title;
+    private String content;
+    private Date createdAt;
+    private Integer postDepth;
+    private Integer sequenceNo;
 }
