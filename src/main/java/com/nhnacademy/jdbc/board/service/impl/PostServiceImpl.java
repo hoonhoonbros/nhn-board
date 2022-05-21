@@ -1,6 +1,7 @@
 package com.nhnacademy.jdbc.board.service.impl;
 
 import com.nhnacademy.jdbc.board.domain.post.Post;
+import com.nhnacademy.jdbc.board.domain.post.PostDetailViewVo;
 import com.nhnacademy.jdbc.board.domain.post.PostNewRequest;
 import com.nhnacademy.jdbc.board.domain.user.User;
 import com.nhnacademy.jdbc.board.repository.PostRepository;
@@ -24,7 +25,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Post getPost(Long postId) {
+    public PostDetailViewVo getPost(Long postId) {
         return postRepository.findById(postId).get();
     }
 

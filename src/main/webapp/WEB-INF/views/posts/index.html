@@ -45,10 +45,13 @@
                         </thead>
                         <tbody>
                            <tr th:if="${#lists.size(posts) gt 0}" th:each="post : ${posts}">
+
                                <td th:text="${post.postNo}">2</a></td>
                                <td><a th:href="@{|/posts/${post.postNo}|}" th:text="${post.title}">반갑습니다. 코락입니다.</a></td>
+
                                <td th:text="${post.username}">CoRock</td>
                                <td th:text="${post.createdAt}">2022-05-20T10:33:00</td>
+
                            </tr>
                            <!-- <tr th:unless="${#lists.size(posts) == 0}"> -->
                            <!--     <td colspan="4">게시글이 존재하지 않습니다.</td> -->
