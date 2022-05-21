@@ -16,7 +16,7 @@ public class PostController {
     @GetMapping
     public ModelAndView index() {
         ModelAndView mav = new ModelAndView("posts/index");
-        mav.addObject("posts", postService.getPosts());
+        mav.addObject("posts", postService.getAllPosts());
 
         return mav;
     }
