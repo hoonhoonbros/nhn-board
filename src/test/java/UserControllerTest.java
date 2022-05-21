@@ -39,7 +39,7 @@ public class UserControllerTest {
     void goToLoginFormTest() throws Exception {
         mockMvc.perform(get("/login"))
                .andExpect(status().is3xxRedirection())
-               .andExpect(view().name("users/login-form"));
+               .andExpect(view().name("users/form"));
     }
 
     @Test
@@ -53,7 +53,7 @@ public class UserControllerTest {
                                               .param("username", "admin")
                                               .param("password", "123"))
                                       .andExpect(status().is3xxRedirection())
-                                      .andExpect(view().name("posts/post"))
+                                      .andExpect(view().name("posts/index"))
                                       .andReturn();
 
         HttpSession session = mockResult.getRequest().getSession(false);

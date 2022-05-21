@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Objects;
 
-import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 
 @Service
 @RequiredArgsConstructor
@@ -31,6 +31,6 @@ public class UserServiceImpl implements UserService {
     }
 
     private boolean isValidAccount(String password, User user) {
-        return isNull(user) || !Objects.equals(user.getPassword(), password);
+        return nonNull(user) || Objects.equals(user.getPassword(), password);
     }
 }

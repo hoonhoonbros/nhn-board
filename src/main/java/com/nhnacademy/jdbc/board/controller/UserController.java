@@ -19,7 +19,7 @@ public class UserController {
 
     @GetMapping("/login")
     public String goLoginForm() {
-        return "users/login-form";
+        return "users/form";
     }
 
     @PostMapping("/login")
@@ -33,7 +33,8 @@ public class UserController {
             response.sendRedirect("/posts");
             return null;
         }
-        response.sendRedirect("/users/login-form");
+
+        response.sendRedirect("/users/form");
         return null;
     }
 
