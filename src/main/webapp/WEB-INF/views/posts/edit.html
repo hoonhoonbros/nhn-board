@@ -1,31 +1,49 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://thymeleaf.org">
-    <head>
-        <meta charset="UTF-8">
-        <title>NHN Board</title>
-    </head>
-    <style>
-        body {
-            margin: 0;
-        }
-        header {
-            border: 2px solid darkgoldenrod;
-            padding: 1.5rem;
-        }
-        main {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: calc(100vh - 1.5rem);
-        }
-    </style>
-    <body>
-        <header>
-            <a href="/">NHN Board</a> | 게시글 수정
-        </header>
-        <main>
-            게시글 수정 페이지입니다.
-        </main>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <title>NHN Board</title>
+</head>
+<style>
+    body {
+        margin: 0;
+    }
+
+    header {
+        border: 2px solid darkgoldenrod;
+        padding: 1.5rem;
+    }
+
+    main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: calc(100vh - 1.5rem);
+    }
+</style>
+<body>
+<header>
+    <a href="/">NHN Board</a> | 게시글 수정
+</header>
+<main>
+    <h1>게시글 수정하기</h1>
+    <form action="/posts/${postNo}/edit" th:action method="post">
+
+        <div>
+            <label for="post-title">글 제목</label>
+            <input type="text" id="post-title" name="title" class="form-post" th:placeholder="${post.title}">
+        </div>
+        <div>
+            <label for="post-content">글 내용</label>
+            <textarea id="post-content" name="content" class="form-post" th:placeholder="${post.content}"></textarea>
+        </div>
+        <div>
+            <input type="hidden" name="method" value="put"/>
+            <button type="submit">등록</button>
+            <button th:onclick="|location.href='@{/posts}|">취소</button>
+        </div>
+    </form>
+</main>
+</body>
 </html>

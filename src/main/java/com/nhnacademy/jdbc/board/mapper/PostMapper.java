@@ -6,7 +6,12 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PostMapper {
-    List<Post> selectPosts();
+
+    List<Post> selectViewPosts();
+
+    List<Post> selectPostsForReply();
+
+    List<Long> selectPostNumbers();
 
     Optional<Post> selectPost(Long postId);
 
@@ -14,7 +19,10 @@ public interface PostMapper {
 
     void insertReplyPost(PostNewRequest postRequest);
 
-    void updateReplySequence(Long postId);
+    void updatePostById(PostNewRequest postEditRequest);
+
+    void updateFreeUpSpace(Post post);
+
 
     // Long countAllPosts();
 }

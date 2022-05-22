@@ -11,5 +11,4 @@ public class PostViewVo {
     private String title;
     private String username;
     private Date createdAt;
-    private String content;
 }

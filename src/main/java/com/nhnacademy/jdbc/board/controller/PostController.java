@@ -1,5 +1,6 @@
 package com.nhnacademy.jdbc.board.controller;
 
+import com.nhnacademy.jdbc.board.domain.post.Post;
 import com.nhnacademy.jdbc.board.domain.post.PostNewRequest;
 import com.nhnacademy.jdbc.board.service.PostService;
 import javax.servlet.http.HttpServletRequest;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -33,7 +33,6 @@ public class PostController {
     public ModelAndView postDetail(@PathVariable Long postId) {
         ModelAndView mav = new ModelAndView("posts/post");
         mav.addObject("post", postService.getPost(postId));
-
         return mav;
     }
 
@@ -52,15 +51,30 @@ public class PostController {
     }
 
     @GetMapping("/{postNo}/edit")
-    public String editPost() {
-        return "posts/edit";
+    public ModelAndView editPost(@PathVariable Long postNo) {
+        ModelAndView mav = new ModelAndView("posts/edit");
+        mav.addObject("postNo", postNo);
+        mav.addObject("post", postService.getPost(postNo));
+
+        return mav;
     }
 
-    @PutMapping("/{postNo}/edit")
-    public String doEditPost() {
+    // @PutMapping("/{postNo}/edit")
+    // public ModelAndView doEditPost(@RequestParam("title")String title, @RequestParam("content")String content) {
+    //     // TODO: Validation -> index | postDetail
+    //     ModelAndView mav = new ModelAndView("posts/post");
+    //     mav.addObject("post", postService.edit(title, content));
+    //     // return "posts/edit";
+    //     return null;
+    // }
+
+    @PostMapping("/{postNo}/edit")
+    public ModelAndView doEditPost(@ModelAttribute PostNewRequest postEditRequest) {
         // TODO: Validation -> index | postDetail
+        ModelAndView mav = new ModelAndView("posts/index");
+        mav.addObject("post", postService.editPost(postEditRequest));
         // return "posts/edit";
-        return null;
+        return mav;
     }
 
     @GetMapping("/delete")
@@ -73,19 +87,18 @@ public class PostController {
         return null;
     }
 
-    @GetMapping("/reply/{parentPostNo}")
-    public ModelAndView reply(@PathVariable Long parentPostNo){
+    @GetMapping("/reply/{postNo}")
+    public ModelAndView reply(@PathVariable Long postNo){
         ModelAndView mav = new ModelAndView("posts/reply");
-        mav.addObject(parentPostNo);
+        mav.addObject("postNo", postNo);
+
         return mav;
     }
 
     @PostMapping("/reply/{parentPostNo}")
-    public ModelAndView doReply(@ModelAttribute PostNewRequest postRequest){
-        ModelAndView mav = new ModelAndView("posts/post");
-        postService.doReplyPost(postRequest);
-        // mav.addObject("post", );
+    public String doReply(@ModelAttribute PostNewRequest postRequest, HttpServletRequest request){
+        postService.doReplyPost(postRequest, request);
 
-        return mav;
+        return "posts/index";
     }
 }

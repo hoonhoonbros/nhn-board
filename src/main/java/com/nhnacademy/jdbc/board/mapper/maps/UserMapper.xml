@@ -8,9 +8,8 @@
              , password
              , role_code AS roleCode
           FROM User
-         WHERE username = '${userName}'
+         WHERE username = '${username}'
     </select>
-
     <insert id="insertUser">
         INSERT INTO User (username, password, role_code)
         VALUES ('user', '123', '사용자')

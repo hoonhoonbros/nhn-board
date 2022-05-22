@@ -1,12 +1,16 @@
 package com.nhnacademy.jdbc.board.repository.impl;
 
 import com.nhnacademy.jdbc.board.domain.post.Post;
-import com.nhnacademy.jdbc.board.domain.post.PostDetailViewVo;
 import com.nhnacademy.jdbc.board.domain.post.PostNewRequest;
+import com.nhnacademy.jdbc.board.domain.user.User;
 import com.nhnacademy.jdbc.board.mapper.PostMapper;
+import com.nhnacademy.jdbc.board.mapper.UserMapper;
 import com.nhnacademy.jdbc.board.repository.PostRepository;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -14,14 +18,13 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor
 public class PostRepositoryImpl implements PostRepository {
     private final PostMapper postMapper;
+    private final UserMapper userMapper;
 
     @Override
-    public List<Post> findAll() {
-        return postMapper.selectPosts();
-    }
+    public List<Post> findAll() { return postMapper.selectViewPosts(); }
 
     @Override
-    public Optional<PostDetailViewVo> findById(Long postId) {
+    public Optional<Post> findById(Long postId) {
         return postMapper.selectPost(postId);
     }
 
@@ -31,25 +34,34 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public void saveReply(PostNewRequest postRequest) {
+    public void saveReply(PostNewRequest postRequest, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        String username = (String) session.getAttribute("username");
+        Optional<User> user = userMapper.selectUser(username);
+        postRequest.setUserNo(user.get().getUserNo());
+
+        Optional<Post> post = findById(postRequest.getParentPostNo());    // 바로 위 게시글 번호로 찾기
+        Post parentPost = post.get();
+        Integer depth = parentPost.getPostDepth();
+        postRequest.setPostDepth(depth + 1);                               // 뎁스 계산
+
+        postRequest.setPostGroupNo(parentPost.getPostGroupNo());
+
+        // FIXME: post_group_no, post_group_seq, post_depth
+        // FIXME: title1(1, 0, 0) -> title_1_1(1, 1, 1) -> title_1_2(1, 2, 1) -> title_1_1_1(1, 2, 2)
+        Long parentPostGroupSeq = parentPost.getPostGroupSeq();
+        postMapper.updateFreeUpSpace(parentPost);
+        parentPost.setPostGroupSeq(parentPostGroupSeq + 1);
+        // postRequest.setPostGroupSeq(parentPostGroupSeq); // 상위게시글 바로 다음으로 시퀀스 설정
+        postRequest.setPostGroupSeq(parentPost.getPostGroupSeq()); // 상위게시글 바로 다음으로 시퀀스 설정
+
         postMapper.insertReplyPost(postRequest);
     }
 
-    public void increaseSeqNumber(Long parentPostId) {
-        // long countAllPosts = postMapper.countAllPosts();
-        List<Post> posts = postMapper.selectPosts();
-        // Post post;
-        // for (long i = parentPostId + 1; i <= countAllPosts; i++) {
-        //     post = findById(i).get();
-        //     postMapper.updateReplySequence(post.getSequenceNumber());
-        // }
-
-        posts.forEach(post -> {
-            long postNo = post.getPostNo();
-            if (postNo > parentPostId) {
-                postMapper.updateReplySequence(postNo);
-            }
-        });
+    @Override
+    public void modifyPost(PostNewRequest postEditRequest) {
+        postMapper.updatePostById(postEditRequest);
     }
+
 
 }

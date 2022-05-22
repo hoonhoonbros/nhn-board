@@ -4,8 +4,10 @@ import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class PostNewRequest {
@@ -16,5 +18,6 @@ public class PostNewRequest {
     private String content;
     private Date createdAt;
     private Integer postDepth;
-    private Integer sequenceNo;
+    private Long postGroupNo;
+    private Long postGroupSeq;
 }

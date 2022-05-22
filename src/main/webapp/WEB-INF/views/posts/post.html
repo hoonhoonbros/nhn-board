@@ -40,11 +40,11 @@
             </div>
             <div>
                 <label for="post-content">글 내용</label>
-                <textarea width="600" id="post-content" name="content" class="form-post" th:value="${post.content}">
-                </textarea>
+                <textarea width="600" id="post-content" name="content" class="form-post" th:text="${post.content}"></textarea>
+                <input type = "hidden" name ="postGroupSeq" th:value="${post.postGroupSeq}">
             </div>
             <div>
-                <button onclick="location.href= '/posts/reply'">답글</button>
+                <button th:onclick="|location.href='@{/posts/reply/{postNo} (postNo=${post.postNo})}'|">답글</button>
                 <!-- /posts/5/edit -->
                 <button th:onclick="|location.href='@{/posts/{postNo}/edit (postNo=${post.postNo})}'|">글 수정</button>
                 <button th:onclick="|location.href='@{/posts}'|">글 목록으로</button>

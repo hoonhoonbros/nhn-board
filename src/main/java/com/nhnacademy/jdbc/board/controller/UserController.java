@@ -32,7 +32,7 @@ public class UserController {
             response.sendRedirect("/posts");
             return null;
         }
-        response.sendRedirect("/users/form");
+        response.sendRedirect("/login");
         return null;
     }
 

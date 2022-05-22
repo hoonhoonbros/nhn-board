@@ -42,7 +42,7 @@ public class UserControllerTest {
 
     @Test
     void loginCheckSuccessfulTest() throws Exception {
-        User user = new User(0,"admin","123", "관리자");
+        User user = new User(0L,"admin","123", "관리자");
         Optional<User> userTest = Optional.of(user);
 
         when(userRepository.findByUserName(anyString())).thenReturn(userTest);
