@@ -28,34 +28,45 @@
             <a href="/">NHN Board</a> | 게시글 상세
         </header>
         <main>
-            <h2>게시글 상세</h2>
-            <div>
-                <label for="post-no">글 번호</label>
-                <input type="text" id="post-no" name="postNo" class="form-post" th:value="${post.postNo}" readonly>
-            </div>
-            <div>
-                <label for="post-title">글 제목</label>
-                <input type="text" id="post-title" name="title" class="form-post" th:value="${post.title}"
-                       readonly>
-            </div>
-            <div>
-                <label for="post-title">작성자(마지막수정자)</label>
-                <input type="text" id="post-username" name="username" class="form-post" th:value="${post.userName}"
-                       readonly>
-            </div>
-            <div>
-                <label for="post-content">글 내용</label>
-                <textarea width="600" id="post-content" name="content" class="form-post" th:text="${post.content}"></textarea>
-                <input type = "hidden" name ="postGroupSeq" th:value="${post.postGroupSeq}">
-                <input type ="hidden" name="userNo" th:value="${post.userNo}">
-            </div>
-            <div>
-                <button th:onclick="|location.href='@{/posts/reply/{postNo} (postNo=${post.postNo})}'|">답글</button>
-                <!-- /posts/5/edit -->
-                <button th:onclick="|location.href='@{/posts/{postNo}/edit (postNo=${post.postNo})}'|">글 수정</button>
-                <button th:onclick="|location.href='@{/posts/{postNo}/delete (postNo=${post.postNo})}'|">글 삭제</button>
-                <button th:onclick="|location.href='@{/posts}'|">글 목록으로</button>
-            </div>
+            <section>
+                <h2>게시글 상세</h2>
+                <div>
+                    <label for="post-no">글 번호</label>
+                    <input type="text" id="post-no" name="postNo" class="form-post" th:value="${post.postNo}" readonly>
+                </div>
+                <div>
+                    <label for="post-title">글 제목</label>
+                    <input type="text" id="post-title" name="title" class="form-post" th:value="${post.title}"
+                           readonly>
+                </div>
+                <div>
+                    <label for="post-content">글 내용</label>
+                    <textarea width="600" id="post-content" name="content" class="form-post" th:text="${post.content}"
+                              readonly></textarea>
+                    <input type="hidden" name="postGroupSeq" th:value="${post.postGroupSeq}">
+                </div>
+                <div>
+                    <button th:onclick="|location.href='@{/posts/reply/{postNo} (postNo=${post.postNo})}'|">답글</button>
+                    <button th:onclick="|location.href='@{/posts/{postNo}/edit (postNo=${post.postNo})}'|">글 수정</button>
+                    <button th:onclick="|location.href='@{/posts}'|">글 목록으로</button>
+                </div>
+            </section>
+            <hr>
+            <section>
+                <h2>댓글 작성 (Comment)</h2>
+                <form method="post" action="#" th:action="@{/comment/new}">
+                    <input type="hidden" name="commentNo" th:value="${post.postNo}">
+                    <div>
+                        <label for="comment-author">작성자</label>
+                        <input type="text" id="comment-author" name="author" th:value="${post.userNo}" readonly>
+                    </div>
+                    <div>
+                        <label for="comment-content">댓글 내용</label>
+                        <textarea width="600" id="comment-content" name="content" class="form-comment"></textarea>
+                    </div>
+                    <button type="submit">댓글 작성</button>
+                </form>
+            </section>
         </main>
     </body>
 </html>
