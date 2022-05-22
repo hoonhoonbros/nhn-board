@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nhnacademy.jdbc.board.mapper.CommentMapper">
+    <resultMap id="commentItem" type="com.nhnacademy.jdbc.board.domain.comment.CommentItem">
+        <result column="comment_no" property="commentNo" />
+        <result column="user_no" property="userNo" />
+        <result column="post_no" property="postNo" />
+        <result column="content" property="content" />
+        <result column="author" property="author" />
+        <result column="modifier" property="modifier" />
+        <result column="created_at" property="createdAt" javaType="java.util.Date" />
+        <result column="updated_at" property="updatedAt" javaType="java.util.Date" />
+        <result column="deleted_at" property="deletedAt" javaType="java.util.Date" />
+    </resultMap>
+
+    <select id="selectComments" resultMap="commentItem">
+        SELECT username   AS author
+             , post_no    AS postNo
+             , content
+             , created_at AS createdAt
+        FROM Comment A
+             INNER JOIN User B
+                     ON B.user_no = A.user_no
+    </select>
+
+    <insert id="insertComment" parameterType="com.nhnacademy.jdbc.board.domain.comment.Comment">
+        INSERT INTO Comment (user_no, post_no, content, created_at)
+        VALUES (#{userNo}, ${postNo}, #{content}, #{createdAt})
+    </insert>
+
+    <update id="updateComment" parameterType="com.nhnacademy.jdbc.board.domain.comment.CommentItem">
+        UPDATE INTO Comment
+           SET modifier = #{modifier}, content = #{content}, updated_at = #{updatedAt})
+         WHERE user_no = #{userNo}
+    </update>
+
+    <delete id="deleteComment" parameterType="com.nhnacademy.jdbc.board.domain.comment.CommentItem">
+        DELETE
+          FROM Comment
+         WHERE user_no = #{userNo}
+           AND post_no = #{postNo}
+    </delete>
+
+</mapper>
