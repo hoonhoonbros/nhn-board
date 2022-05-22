@@ -19,9 +19,9 @@ public class MybatisConfig {
     public DataSource dataSource() {
         BasicDataSource basicDataSource = new BasicDataSource();
         basicDataSource.setDriverClassName(com.mysql.cj.jdbc.Driver.class.getName());
-        basicDataSource.setUrl("jdbc:mysql://133.186.211.156:3306/nhn_academy_19");
-        basicDataSource.setUsername("nhn_academy_19");
-        basicDataSource.setPassword("2/5l(ky6VP_bbyzZ");
+        basicDataSource.setUrl("jdbc:mysql://133.186.211.156:3306/nhn_academy_21");
+        basicDataSource.setUsername("nhn_academy_21");
+        basicDataSource.setPassword("*L]RAMG*8NYJnCKK");
         basicDataSource.setInitialSize(2);
         basicDataSource.setMaxTotal(10);
         return basicDataSource;
