@@ -1,14 +1,12 @@
 package com.nhnacademy.jdbc.board.interceptor;
 
-import org.springframework.web.servlet.HandlerInterceptor;
+import static java.util.Objects.isNull;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import static java.util.Objects.isNull;
+import org.springframework.web.servlet.HandlerInterceptor;
 
 public class LoginCheckInterceptor implements HandlerInterceptor {
-
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
                              Object handler) throws Exception {
@@ -20,5 +18,4 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 
         return true;
     }
-
 }

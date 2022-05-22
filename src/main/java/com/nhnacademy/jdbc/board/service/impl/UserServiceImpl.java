@@ -18,23 +18,17 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     public boolean doLogin(String username, String password, HttpServletRequest request) {
-
         Optional<User> user = userRepository.findByUserName(username);
 
         if (user.isEmpty()) {
-
             return false;
-
         }
 
         if (!isValidAccount(user.get(), password)) {
-
             return false;
-
         }
 
         HttpSession session = request.getSession(true);
-
         session.setAttribute("username", username);
 
         return true;
@@ -42,9 +36,6 @@ public class UserServiceImpl implements UserService {
     }
 
     private boolean isValidAccount(User user, String password) {
-
         return nonNull(user) && Objects.equals(user.getPassword(), password);
-
     }
-
 }

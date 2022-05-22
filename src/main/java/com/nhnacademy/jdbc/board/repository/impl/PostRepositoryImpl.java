@@ -1,5 +1,6 @@
 package com.nhnacademy.jdbc.board.repository.impl;
 
+import com.nhnacademy.jdbc.board.domain.page.Pageable;
 import com.nhnacademy.jdbc.board.domain.post.Post;
 import com.nhnacademy.jdbc.board.domain.post.PostNewRequest;
 import com.nhnacademy.jdbc.board.domain.user.User;
@@ -8,7 +9,6 @@ import com.nhnacademy.jdbc.board.mapper.UserMapper;
 import com.nhnacademy.jdbc.board.repository.PostRepository;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicReference;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -21,11 +21,15 @@ public class PostRepositoryImpl implements PostRepository {
     private final UserMapper userMapper;
 
     @Override
-    public List<Post> findAll() { return postMapper.selectViewPosts(); }
+    public List<Post> findAll(Pageable pageable) {
+        pageable.setNumOfPosts(postMapper.selectNumOfPosts());
+        pageable.paginate();
+        return postMapper.selectPosts(pageable);
+    }
 
     @Override
-    public Optional<Post> findById(Long postId) {
-        return postMapper.selectPost(postId);
+    public Optional<Post> findById(Long postNo) {
+        return postMapper.selectPost(postNo);
     }
 
     @Override
@@ -62,6 +66,4 @@ public class PostRepositoryImpl implements PostRepository {
     public void modifyPost(PostNewRequest postEditRequest) {
         postMapper.updatePostById(postEditRequest);
     }
-
-
 }

@@ -1,5 +1,6 @@
 package com.nhnacademy.jdbc.board.service.impl;
 
+import com.nhnacademy.jdbc.board.domain.page.Pageable;
 import com.nhnacademy.jdbc.board.domain.post.Post;
 import com.nhnacademy.jdbc.board.domain.post.PostNewRequest;
 import com.nhnacademy.jdbc.board.domain.user.User;
@@ -19,8 +20,8 @@ public class PostServiceImpl implements PostService {
     private final UserRepository userRepository;
 
     @Override
-    public List<Post> getAllPosts() {
-        return postRepository.findAll();
+    public List<Post> getPagingPosts(Pageable pageable) {
+        return postRepository.findAll(pageable);
     }
 
     @Override
@@ -48,6 +49,4 @@ public class PostServiceImpl implements PostService {
         postRepository.modifyPost(postEditRequest);
         return null;
     }
-
-
 }

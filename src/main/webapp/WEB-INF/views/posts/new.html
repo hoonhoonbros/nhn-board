@@ -35,12 +35,11 @@
                 </div>
                 <div>
                     <label for="post-content">글 내용</label>
-                    <textarea id="post-content" name="content" class="form-post" placeholder="내용을 입력하세요.">
-                    </textarea>
+                    <textarea id="post-content" name="content" class="form-post" rows="20" cols="40"></textarea>
                 </div>
                 <div>
                     <button type="submit">등록</button>
-                    <button th:onclick="|location.href='@{/posts}|">취소</button>
+                    <button th:onclick="|location.href='@{/posts}'|">글 목록으로</button>
                 </div>
             </form>
         </main>

@@ -1,14 +1,17 @@
 package com.nhnacademy.jdbc.board.domain.post;
 
-import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
-public class PostViewVo {
+public class PostDetailViewVo {
     private Long postNo;
     private String title;
     private String username;
-    private Date createdAt;
+    private String content;
 }
