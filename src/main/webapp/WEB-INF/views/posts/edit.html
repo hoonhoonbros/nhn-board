@@ -39,7 +39,6 @@
             <textarea id="post-content" name="content" class="form-post" th:placeholder="${post.content}"></textarea>
         </div>
         <div>
-            <input type="hidden" name="method" value="put"/>
             <button type="submit">등록</button>
             <button th:onclick="|location.href='@{/posts}|">취소</button>
         </div>

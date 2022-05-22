@@ -14,6 +14,7 @@ public class Post {
     private Long postNo;
     private Long userNo;
     private Long parentPostNo;
+    private String userName;
     private String title;
     private String content;
     private Date createdAt;

@@ -3,8 +3,10 @@ package com.nhnacademy.jdbc.board.controller;
 import com.nhnacademy.jdbc.board.domain.page.MySqlPaginator;
 import com.nhnacademy.jdbc.board.domain.page.Page;
 import com.nhnacademy.jdbc.board.domain.page.Pageable;
+import com.nhnacademy.jdbc.board.domain.post.Post;
 import com.nhnacademy.jdbc.board.domain.post.PostNewRequest;
 import com.nhnacademy.jdbc.board.service.PostService;
+import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,7 +40,6 @@ public class PostController {
     @GetMapping("/page/{pageNo}")
     public ModelAndView index(@PathVariable Long pageNo) {
         ModelAndView mav = new ModelAndView("posts/index");
-
         Pageable pageable = new MySqlPaginator(0, new Page(pageNo, 4));
         mav.addObject("pagination", pageable);
         mav.addObject("posts", postService.getPagingPosts(pageable));
@@ -69,40 +70,33 @@ public class PostController {
     }
 
     @GetMapping("/{postNo}/edit")
-    public ModelAndView editPost(@PathVariable Long postNo) {
-        ModelAndView mav = new ModelAndView("posts/edit");
+    public ModelAndView editPost(@PathVariable Long postNo,HttpServletRequest request) {
+        ModelAndView mav = null;
+        Post post = postService.getEditPost(postNo, request);
+
+        if(Objects.isNull(post)){
+            mav = new ModelAndView("redirect:/posts");
+        }else{
+            mav = new ModelAndView("posts/edit");
+        }
+
         mav.addObject("postNo", postNo);
-        mav.addObject("post", postService.getPost(postNo));
+        mav.addObject("post", post);
 
         return mav;
     }
-
-    // @PutMapping("/{postNo}/edit")
-    // public ModelAndView doEditPost(@RequestParam("title")String title, @RequestParam("content")String content) {
-    //     // TODO: Validation -> index | postDetail
-    //     ModelAndView mav = new ModelAndView("posts/post");
-    //     mav.addObject("post", postService.edit(title, content));
-    //     // return "posts/edit";
-    //     return null;
-    // }
 
     @PostMapping("/{postNo}/edit")
-    public ModelAndView doEditPost(@ModelAttribute PostNewRequest postEditRequest) {
+    public String doEditPost(@ModelAttribute PostNewRequest postEditRequest, HttpServletRequest request) {
         // TODO: Validation -> index | postDetail
-        ModelAndView mav = new ModelAndView("posts/index");
-        mav.addObject("post", postService.editPost(postEditRequest));
-        // return "posts/edit";
-        return mav;
+        postService.editPost(postEditRequest, request);
+        return "redirect:/posts";
     }
 
-    @GetMapping("/delete")
-    public String deletePost() {
-        return "posts/delete";
-    }
-
-    @DeleteMapping("/delete")
-    public String doDeletePost() {
-        return null;
+    @GetMapping("/{postNo}/delete")
+    public String deletePost(@PathVariable Long postNo, HttpServletRequest request) {
+        postService.doDelete(postNo, request);
+        return "redirect:/posts/";
     }
 
     @GetMapping("/reply/{postNo}")

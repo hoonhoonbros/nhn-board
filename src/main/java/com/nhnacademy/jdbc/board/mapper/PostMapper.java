@@ -7,11 +7,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PostMapper {
-    List<Post> selectViewPosts();
-
-    List<Post> selectPostsForReply();
-
-    List<Long> selectPostNumbers();
 
     List<Post> selectPosts(Pageable pageable);
 
@@ -25,6 +20,7 @@ public interface PostMapper {
 
     void updateFreeUpSpace(Post post);
 
-
     Integer selectNumOfPosts();
+
+    void deleteByPostNo(Long postNo);
 }

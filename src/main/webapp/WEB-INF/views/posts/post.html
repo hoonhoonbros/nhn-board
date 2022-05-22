@@ -39,14 +39,21 @@
                        readonly>
             </div>
             <div>
+                <label for="post-title">작성자(마지막수정자)</label>
+                <input type="text" id="post-username" name="username" class="form-post" th:value="${post.userName}"
+                       readonly>
+            </div>
+            <div>
                 <label for="post-content">글 내용</label>
                 <textarea width="600" id="post-content" name="content" class="form-post" th:text="${post.content}"></textarea>
                 <input type = "hidden" name ="postGroupSeq" th:value="${post.postGroupSeq}">
+                <input type ="hidden" name="userNo" th:value="${post.userNo}">
             </div>
             <div>
                 <button th:onclick="|location.href='@{/posts/reply/{postNo} (postNo=${post.postNo})}'|">답글</button>
                 <!-- /posts/5/edit -->
                 <button th:onclick="|location.href='@{/posts/{postNo}/edit (postNo=${post.postNo})}'|">글 수정</button>
+                <button th:onclick="|location.href='@{/posts/{postNo}/delete (postNo=${post.postNo})}'|">글 삭제</button>
                 <button th:onclick="|location.href='@{/posts}'|">글 목록으로</button>
             </div>
         </main>

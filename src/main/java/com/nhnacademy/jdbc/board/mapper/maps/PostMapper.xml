@@ -21,20 +21,8 @@
                      ON B.user_no = A.user_no
         WHERE 1 = 1
           AND post_no > 0
-        ORDER BY post_no DESC, created_at DESC
+        ORDER BY post_group_no DESC, post_group_seq ASC
         LIMIT #{limit} OFFSET #{offset}
-    </select>
-
-    <select id="selectPostDetail" resultType="com.nhnacademy.jdbc.board.domain.post.PostDetailViewVo">
-        SELECT post_no    AS postNo
-             , title
-             , username
-             , created_at  AS createdAt
-             , sequence_no AS sequenceNo
-             , parent_no   AS parentPostNo
-        FROM Post A
-             INNER JOIN User B
-                     ON B.user_no = A.user_no
     </select>
 
     <select id="selectPost" resultType="com.nhnacademy.jdbc.board.domain.post.Post">
@@ -69,7 +57,7 @@
 
     <update id="updatePostById">
         UPDATE Post
-           SET title = #{title}, content = #{content}, updated_at = NOW()
+           SET title = #{title}, content = #{content}, updated_at = NOW(), user_no = #{userNo}
          WHERE post_no = #{postNo}
     </update>
 
@@ -80,10 +68,10 @@
            AND post_group_seq >= #{postGroupSeq} + 1
     </update>
 
-    <delete id="deletePostById">
-        DELETE
-          FROM Post
-         WHERE post_no = #{postId}
-    </delete>
+    <update id = "deleteByPostNo">
+        UPDATE Post
+        SET deleted_at = now();
+        WHERE post_no = #{postNo}
+    </update>
 
 </mapper>

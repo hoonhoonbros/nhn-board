@@ -8,8 +8,10 @@ import com.nhnacademy.jdbc.board.repository.PostRepository;
 import com.nhnacademy.jdbc.board.repository.UserRepository;
 import com.nhnacademy.jdbc.board.service.PostService;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +32,20 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public Post getEditPost(Long postNo, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+
+        String userName = (String) session.getAttribute("username");
+        Post post = postRepository.findById(postNo).get();
+
+        if (post.getUserName().equals(userName) || Objects.equals(userName, "admin")) {
+            return post;
+        }
+
+        return null;
+    }
+
+    @Override
     public void newPost(PostNewRequest postRequest, HttpServletRequest request) {
         String username = (String) request.getSession(false).getAttribute("username");
         Optional<User> user = userRepository.findByUserName(username);
@@ -45,8 +61,25 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Post editPost(PostNewRequest postEditRequest) {
-        postRepository.modifyPost(postEditRequest);
-        return null;
+    public void editPost(PostNewRequest postEditRequest, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+
+        String userName = (String) session.getAttribute("username");
+
+        postRepository.modifyPost(postEditRequest, userName);
+
+    }
+
+    @Override
+    public void doDelete(Long postNo, HttpServletRequest request) {
+
+        HttpSession session = request.getSession(false);
+
+        String userName = (String) session.getAttribute("username");
+        Post post = postRepository.findById(postNo).get();
+
+        if (post.getUserName().equals(userName) || Objects.equals(userName, "admin")) {
+            postRepository.removePostById(postNo);
+        }
     }
 }

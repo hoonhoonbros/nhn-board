@@ -10,13 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 public interface PostRepository {
     List<Post> findAll(Pageable pageable);
 
-
     Optional<Post> findById(Long postNo);
 
     void save(PostNewRequest postRequest);
 
     void saveReply(PostNewRequest postRequest, HttpServletRequest request);
 
+    void modifyPost(PostNewRequest postEditRequest, String userName);
 
-    void modifyPost(PostNewRequest postEditRequest);
+    void removePostById(Long postNo);
 }

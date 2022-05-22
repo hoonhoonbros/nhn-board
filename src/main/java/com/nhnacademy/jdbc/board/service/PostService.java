@@ -11,9 +11,13 @@ public interface PostService {
 
     Post getPost(Long postNo);
 
+    Post getEditPost(Long postNo,HttpServletRequest request);
+
     void newPost(PostNewRequest postRequest, HttpServletRequest request);
 
     void doReplyPost(PostNewRequest postRequest, HttpServletRequest request);
 
-    Post editPost(PostNewRequest postEditRequest);
+    void editPost(PostNewRequest postEditRequest, HttpServletRequest request);
+
+    void doDelete(Long postNo, HttpServletRequest request);
 }

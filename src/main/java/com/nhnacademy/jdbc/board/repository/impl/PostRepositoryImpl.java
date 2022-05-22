@@ -63,7 +63,14 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public void modifyPost(PostNewRequest postEditRequest) {
+    public void modifyPost(PostNewRequest postEditRequest, String userName) {
+        User user = userMapper.selectUser(userName).get();
+        postEditRequest.setUserNo(user.getUserNo());
         postMapper.updatePostById(postEditRequest);
+    }
+
+    @Override
+    public void removePostById(Long postNo) {
+        postMapper.deleteByPostNo(postNo);
     }
 }

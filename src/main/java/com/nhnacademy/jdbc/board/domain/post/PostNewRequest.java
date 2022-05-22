@@ -13,6 +13,7 @@ import lombok.Setter;
 public class PostNewRequest {
     private Long postNo;
     private Long userNo;
+    private String userName;
     private Long parentPostNo;
     private String title;
     private String content;
