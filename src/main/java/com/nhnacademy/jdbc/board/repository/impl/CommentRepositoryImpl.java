@@ -1,10 +1,11 @@
 package com.nhnacademy.jdbc.board.repository.impl;
 
+import static java.lang.Long.parseLong;
+
 import com.nhnacademy.jdbc.board.domain.comment.CommentItem;
 import com.nhnacademy.jdbc.board.domain.comment.CommentNewRequest;
 import com.nhnacademy.jdbc.board.domain.user.User;
 import com.nhnacademy.jdbc.board.mapper.CommentMapper;
-import com.nhnacademy.jdbc.board.mapper.PostMapper;
 import com.nhnacademy.jdbc.board.mapper.UserMapper;
 import com.nhnacademy.jdbc.board.repository.CommentRepository;
 import java.util.List;
@@ -30,8 +31,9 @@ public class CommentRepositoryImpl implements CommentRepository {
         HttpSession session = request.getSession(false);
         String username = (String) session.getAttribute("username");
         Optional<User> user = userMapper.selectUser(username);
-        commentRequest.setUserNo(user.get().getUserNo());
 
+        commentRequest.setUserNo(user.get().getUserNo());
+        commentRequest.setPostNo(parseLong(request.getParameter("commentNo")));
         commentMapper.insertComment(commentRequest);
     }
 }

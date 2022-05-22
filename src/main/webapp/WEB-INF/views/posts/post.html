@@ -54,7 +54,7 @@
             <hr>
             <section>
                 <h2>댓글 작성 (Comment)</h2>
-                <form method="post" action="/comment/new">
+                <form method="post" action="#" th:action="@{/comment/new}">
                     <input type="hidden" name="commentNo" th:value="${post.postNo}">
                     <div>
                         <label for="comment-author">작성자</label>

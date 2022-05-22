@@ -26,7 +26,7 @@
 
     <insert id="insertComment" parameterType="com.nhnacademy.jdbc.board.domain.comment.Comment">
         INSERT INTO Comment (user_no, post_no, content, created_at)
-        VALUES (#{userNo}, ${postNo}, #{content}, #{createdAt})
+        VALUES (#{userNo}, ${postNo}, #{content}, NOW())
     </insert>
 
     <update id="updateComment" parameterType="com.nhnacademy.jdbc.board.domain.comment.CommentItem">
