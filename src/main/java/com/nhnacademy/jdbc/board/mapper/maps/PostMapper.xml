@@ -4,48 +4,74 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.nhnacademy.jdbc.board.mapper.PostMapper">
-    <select id="selectPosts" resultType="com.nhnacademy.jdbc.board.domain.post.PostViewVo">
-        SELECT post_no    AS postNo
+    <select id="selectViewPosts" resultType="com.nhnacademy.jdbc.board.domain.post.PostViewVo">
+        SELECT A.post_no         AS postNo
+             , A.title
+             , B.username
+             , A.created_at      AS createdAt
+          FROM Post A
+    INNER JOIN User B
+            ON A.user_no = B.user_no
+         WHERE 1 = 1
+           AND post_no > 0
+        ORDER BY post_group_no DESC, post_group_seq ASC
+            LIMIT 20 OFFSET 0;
+    </select>
+
+    <select id="selectPostsForReply" resultType="com.nhnacademy.jdbc.board.domain.post.Post">
+        SELECT post_no     AS postNo
              , title
              , username
-             , created_at AS createdAt
-             , seq_no     AS sequenceNo
-          FROM Post A
-               INNER JOIN User B
-                       ON B.user_no = A.user_no
-         ORDER BY seq_no
-    </select>
-    <select id="selectPost" resultType="com.nhnacademy.jdbc.board.domain.post.PostDetailViewVo">
-        SELECT post_no    AS postNo
-             , title
-             , content
+             , created_at  AS createdAt
+             , sequence_no AS sequenceNo
+             , parent_no   AS parentPostNo
         FROM Post A
                  INNER JOIN User B
                             ON B.user_no = A.user_no
-        where post_no = #{postId}
+    </select>
+
+    <select id="selectPostNumbers" resultType="long">
+        SELECT post_no    AS postNo
+        FROM Post
     </select>
 
     <select id="selectPost" resultType="com.nhnacademy.jdbc.board.domain.post.Post">
-        SELECT post_no   AS postNo
+        SELECT post_no        AS postNo
              , title
              , username
              , content
+             , post_group_no  AS postGroupNo
+             , post_group_seq As postGroupSeq
+             , post_depth     AS postDepth
         FROM Post A
              INNER JOIN User B
                      ON B.user_no = A.user_no
         WHERE post_no = #{postNo}
     </select>
 
+
     <!-- TODO: 게시판 내용의 목록은 번호, 제목, 작성자, (수정자), 작성일시, 댓글 개수 입니다. -->
     <insert id="insertPost">
-        INSERT INTO Post (user_no, parent_post_no, title, content, created_at, post_depth, sequence_no)
+        INSERT INTO Post (user_no, parent_no, title, content, created_at, post_depth, sequence_no)
         VALUES (#{userNo}, 0, #{title}, #{content}, NOW(), 0, 0)
+    </insert>
+
+    <insert id="insertReplyPost">
+        INSERT INTO Post (user_no, title, content, created_at, post_group_no, post_group_seq, post_depth)
+        VALUES (#{userNo}, #{title}, #{content}, NOW(), #{postGroupNo} , #{postGroupSeq}, #{postDepth})
     </insert>
 
     <update id="updatePostById">
         UPDATE Post
-           SET title = '${title}', content = '${content}'
-         WHERE post_no = #{postId}
+           SET title = #{title}, content = #{content}
+         WHERE post_no = #{postNo}
+    </update>
+
+    <update id="updateFreeUpSpace">
+        UPDATE Post
+           SET post_group_seq = post_group_seq + 1
+         WHERE post_group_no = #{postGroupNo}
+           AND post_group_seq >= #{postGroupSeq} + 1;
     </update>
 
     <delete id="deletePostById">

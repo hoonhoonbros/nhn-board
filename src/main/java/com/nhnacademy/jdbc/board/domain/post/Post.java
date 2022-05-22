@@ -20,5 +20,6 @@ public class Post {
     private Date updatedAt;
     private Date deletedAt;
     private Integer postDepth;
-    private Long sequenceNo;
+    private Long postGroupNo;
+    private Long postGroupSeq;
 }
