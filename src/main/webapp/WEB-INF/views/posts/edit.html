@@ -32,12 +32,11 @@
 
         <div>
             <label for="post-title">글 제목</label>
-            <input type="text" id="post-title" name="title" class="form-post" placeholder="제목을 입력하세요.">
+            <input type="text" id="post-title" name="title" class="form-post" th:placeholder="${post.title}">
         </div>
         <div>
             <label for="post-content">글 내용</label>
-            <textarea id="post-content" name="content" class="form-post" placeholder="내용을 입력하세요.">
-                    </textarea>
+            <textarea id="post-content" name="content" class="form-post" th:placeholder="${post.content}"></textarea>
         </div>
         <div>
             <input type="hidden" name="method" value="put"/>

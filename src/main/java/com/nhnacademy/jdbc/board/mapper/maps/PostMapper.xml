@@ -63,7 +63,7 @@
 
     <update id="updatePostById">
         UPDATE Post
-           SET title = #{title}, content = #{content}
+           SET title = #{title}, content = #{content}, updated_at = now()
          WHERE post_no = #{postNo}
     </update>
 

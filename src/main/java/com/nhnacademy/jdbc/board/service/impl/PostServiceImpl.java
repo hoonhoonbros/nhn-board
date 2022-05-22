@@ -39,10 +39,6 @@ public class PostServiceImpl implements PostService {
     @Override
     public void doReplyPost(PostNewRequest postRequest, HttpServletRequest request) {
         // TODO: 만약 post_depth 가 0이 아니면 게시글이 아닌 답글이므로 UPDATE 를 먼저 호출
-        if (postRequest.getPostDepth() != 0) {
-            // post_group_seq 1 2 -> 2 3
-            postRepository.updatePostGroups(postRequest);
-        }
         // 그냥 게시글일 때는 0 + 1 / 답글이 달린 거의 경우에는 위에 업데이트 친 다음 원래 요청의 + 1
         postRepository.saveReply(postRequest, request);
     }

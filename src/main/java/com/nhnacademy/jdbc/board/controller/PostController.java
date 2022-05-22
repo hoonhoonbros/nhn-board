@@ -1,5 +1,6 @@
 package com.nhnacademy.jdbc.board.controller;
 
+import com.nhnacademy.jdbc.board.domain.post.Post;
 import com.nhnacademy.jdbc.board.domain.post.PostNewRequest;
 import com.nhnacademy.jdbc.board.service.PostService;
 import javax.servlet.http.HttpServletRequest;
@@ -32,7 +33,6 @@ public class PostController {
     public ModelAndView postDetail(@PathVariable Long postId) {
         ModelAndView mav = new ModelAndView("posts/post");
         mav.addObject("post", postService.getPost(postId));
-
         return mav;
     }
 
@@ -54,6 +54,8 @@ public class PostController {
     public ModelAndView editPost(@PathVariable Long postNo) {
         ModelAndView mav = new ModelAndView("posts/edit");
         mav.addObject("postNo", postNo);
+        mav.addObject("post", postService.getPost(postNo));
+
         return mav;
     }
 
@@ -69,7 +71,7 @@ public class PostController {
     @PostMapping("/{postNo}/edit")
     public ModelAndView doEditPost(@ModelAttribute PostNewRequest postEditRequest) {
         // TODO: Validation -> index | postDetail
-        ModelAndView mav = new ModelAndView("posts/post");
+        ModelAndView mav = new ModelAndView("posts/index");
         mav.addObject("post", postService.editPost(postEditRequest));
         // return "posts/edit";
         return mav;
@@ -97,6 +99,6 @@ public class PostController {
     public String doReply(@ModelAttribute PostNewRequest postRequest, HttpServletRequest request){
         postService.doReplyPost(postRequest, request);
 
-        return mav;
+        return "posts/index";
     }
 }
