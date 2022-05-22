@@ -4,7 +4,28 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.nhnacademy.jdbc.board.mapper.PostMapper">
-    <select id="selectPosts" resultType="com.nhnacademy.jdbc.board.domain.post.PostViewVo">
+    <resultMap id="postItem" type="com.nhnacademy.jdbc.board.domain.post.PostItem">
+        <result column="post_no" property="postNo" />
+        <result column="title" property="title" />
+        <result column="username" property="username" />
+        <result column="created_at" property="createdAt" javaType="java.util.Date" />
+    </resultMap>
+
+    <select id="selectPosts" parameterType="com.nhnacademy.jdbc.board.domain.page.MySqlPaginator" resultMap="postItem">
+        SELECT post_no
+             , title
+             , username
+             , created_at
+        FROM Post A
+             INNER JOIN User B
+                     ON B.user_no = A.user_no
+        WHERE 1 = 1
+          AND post_no > 0
+        ORDER BY post_no DESC, created_at DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <select id="selectPostsBak" resultType="com.nhnacademy.jdbc.board.domain.post.PostItem">
         SELECT post_no    AS postNo
              , title
              , username
@@ -15,13 +36,14 @@
                        ON B.user_no = A.user_no
          ORDER BY seq_no
     </select>
-    <select id="selectPost" resultType="com.nhnacademy.jdbc.board.domain.post.PostDetailViewVo">
+
+    <select id="selectPostDetail" resultType="com.nhnacademy.jdbc.board.domain.post.PostDetailViewVo">
         SELECT post_no    AS postNo
              , title
              , content
         FROM Post A
-                 INNER JOIN User B
-                            ON B.user_no = A.user_no
+             INNER JOIN User B
+                     ON B.user_no = A.user_no
         where post_no = #{postId}
     </select>
 
@@ -34,6 +56,11 @@
              INNER JOIN User B
                      ON B.user_no = A.user_no
         WHERE post_no = #{postNo}
+    </select>
+
+    <select id="selectNumOfPosts" resultType="int">
+        SELECT COUNT(*) AS totalPostCount
+          FROM Post
     </select>
 
     <!-- TODO: 게시판 내용의 목록은 번호, 제목, 작성자, (수정자), 작성일시, 댓글 개수 입니다. -->

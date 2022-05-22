@@ -6,6 +6,7 @@ import com.nhnacademy.jdbc.board.domain.user.User;
 import com.nhnacademy.jdbc.board.repository.UserRepository;
 import com.nhnacademy.jdbc.board.service.UserService;
 import java.util.Objects;
+import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -17,9 +18,13 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     public boolean doLogin(String username, String password, HttpServletRequest request) {
-        User user = userRepository.findByUserName(username).get();
+        Optional<User> user = userRepository.findByUserName(username);
 
-        if (!isValidAccount(user, password)) {
+        if (user.isEmpty()) {
+            return false;
+        }
+
+        if (!isValidAccount(user.get(), password)) {
             return false;
         }
 

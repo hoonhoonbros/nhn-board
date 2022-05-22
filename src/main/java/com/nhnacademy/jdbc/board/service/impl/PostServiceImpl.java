@@ -1,7 +1,7 @@
 package com.nhnacademy.jdbc.board.service.impl;
 
+import com.nhnacademy.jdbc.board.domain.page.Pageable;
 import com.nhnacademy.jdbc.board.domain.post.Post;
-import com.nhnacademy.jdbc.board.domain.post.PostDetailViewVo;
 import com.nhnacademy.jdbc.board.domain.post.PostNewRequest;
 import com.nhnacademy.jdbc.board.domain.user.User;
 import com.nhnacademy.jdbc.board.repository.PostRepository;
@@ -20,13 +20,13 @@ public class PostServiceImpl implements PostService {
     private final UserRepository userRepository;
 
     @Override
-    public List<Post> getAllPosts() {
-        return postRepository.findAll();
+    public List<Post> getPagingPosts(Pageable pageable) {
+        return postRepository.findAll(pageable);
     }
 
     @Override
-    public PostDetailViewVo getPost(Long postId) {
-        return postRepository.findById(postId).get();
+    public Optional<Post> getPost(Long postNo) {
+        return postRepository.findById(postNo);
     }
 
     @Override
