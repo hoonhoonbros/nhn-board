@@ -4,6 +4,7 @@ import com.nhnacademy.jdbc.board.domain.page.MySqlPaginator;
 import com.nhnacademy.jdbc.board.domain.page.Page;
 import com.nhnacademy.jdbc.board.domain.page.Pageable;
 import com.nhnacademy.jdbc.board.domain.post.PostNewRequest;
+import com.nhnacademy.jdbc.board.service.CommentService;
 import com.nhnacademy.jdbc.board.service.PostService;
 import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RequiredArgsConstructor
 public class PostController {
     private final PostService postService;
+    private final CommentService commentService;
 
     @GetMapping
     public ModelAndView index() {
@@ -50,6 +52,7 @@ public class PostController {
     public ModelAndView postDetail(@PathVariable Long postNo) {
         ModelAndView mav = new ModelAndView("posts/post");
         mav.addObject("post", postService.getPost(postNo));
+        mav.addObject("comment", commentService.getCommentsInPost());
 
         return mav;
     }
