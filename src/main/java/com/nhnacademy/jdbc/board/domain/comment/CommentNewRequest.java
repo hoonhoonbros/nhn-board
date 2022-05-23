@@ -13,6 +13,8 @@ import lombok.Setter;
 public class CommentNewRequest {
     private Long userNo;
     private Long postNo;
+    private Long commentNo;
+    private String author;
     private String content;
     private Date createdAt;
 }

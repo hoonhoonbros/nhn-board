@@ -52,7 +52,7 @@ public class PostController {
     public ModelAndView postDetail(@PathVariable Long postNo) {
         ModelAndView mav = new ModelAndView("posts/post");
         mav.addObject("post", postService.getPost(postNo));
-        mav.addObject("comment", commentService.getCommentsInPost());
+        mav.addObject("comment", commentService.getCommentsInPost(postNo));
 
         return mav;
     }

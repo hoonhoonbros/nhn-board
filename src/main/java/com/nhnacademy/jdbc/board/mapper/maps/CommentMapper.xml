@@ -15,13 +15,26 @@
     </resultMap>
 
     <select id="selectComments" resultMap="commentItem">
-        SELECT username   AS author
+        SELECT comment_no
+             , username   AS author
              , post_no    AS postNo
              , content
              , created_at AS createdAt
         FROM Comment A
              INNER JOIN User B
                      ON B.user_no = A.user_no
+        WHERE post_no = #{postNo}
+    </select>
+
+    <select id="selectComment" resultMap="commentItem">
+        SELECT comment_no
+             , username     AS author
+             , post_no
+             , content
+          FROM Comment A
+               INNER JOIN User B
+                       ON B.user_no = A.user_no
+         WHERE comment_no = #{commentNo}
     </select>
 
     <insert id="insertComment" parameterType="com.nhnacademy.jdbc.board.domain.comment.Comment">
@@ -29,11 +42,16 @@
         VALUES (#{userNo}, ${postNo}, #{content}, NOW())
     </insert>
 
-    <update id="updateComment" parameterType="com.nhnacademy.jdbc.board.domain.comment.CommentItem">
-        UPDATE INTO Comment
-           SET modifier = #{modifier}, content = #{content}, updated_at = #{updatedAt})
-         WHERE user_no = #{userNo}
+    <update id="updateComment">
+        UPDATE Comment
+           SET user_no = #{userNo}, content = #{content}, updated_at = now()
+         WHERE comment_no = #{commentNo}
     </update>
+<!--    <update id="selectComment" parameterType="com.nhnacademy.jdbc.board.domain.comment.CommentItem">-->
+<!--        UPDATE INTO Comment-->
+<!--           SET modifier = #{modifier}, content = #{content}, updated_at = #{updatedAt})-->
+<!--         WHERE user_no = #{userNo}-->
+<!--    </update>-->
 
     <delete id="deleteComment" parameterType="com.nhnacademy.jdbc.board.domain.comment.CommentItem">
         DELETE

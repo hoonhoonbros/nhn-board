@@ -16,6 +16,5 @@ public interface PostRepository {
 
     void saveReply(PostNewRequest postRequest, HttpServletRequest request);
 
-
     void modifyPost(PostNewRequest postEditRequest);
 }
